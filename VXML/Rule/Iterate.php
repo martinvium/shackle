@@ -18,14 +18,13 @@ final class Iterate extends DecoratorAbstract
 	}
 	
 	/**
-	 * @param VXML\Context $context
-	 * @param VXML\Response $response
+	 * @param VXML\Event $event
 	 */
-	protected function evaluate($context, $response)
+	protected function evaluate($event)
 	{
 		$results = array();
-		
-		$values = $context->getPassedValue();
+		$response = $event->getResponse();
+		$values = $event->getContext()->getPassedValue();
 		
 		if(! is_array($values))
 			throw new \InvalidArgumentException('target for rule Iterator, may only be an array');
@@ -34,7 +33,7 @@ final class Iterate extends DecoratorAbstract
 		foreach($values as $key => $value)
 		{
 			$this->rule->setRelativeTarget($key);
-			$results[] = $this->rule->execute($context, $child_response);
+			$results[] = $this->rule->execute($event->getContext(), $child_response);
 		}
 		
 		$num_valid = count(array_filter($results));

@@ -25,9 +25,9 @@ abstract class DecoratorAbstract extends RuleAbstract
 		return $this->rule->add($rule);
 	}
 	
-	public function addListener($event, $rule)
+	public function addListener($type, $rule)
 	{
-		return $this->rule->addListener($event, $rule);
+		return $this->rule->addListener($type, $rule);
 	}
 	
 	public function getMessage()

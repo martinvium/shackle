@@ -30,41 +30,34 @@ abstract class CompositeAbstract extends RuleAbstract
 	}
 	
 	/**
-	 * @param VXML\Context $context
-	 * @param VXML\Response $response
+	 * @param VXML\Event $event
 	 */
-	protected function evaluate($context, $response)
+	protected function evaluate($event)
 	{
 		$num_components = count($this->getListeners('components'));
 		
 		$child_response = new VXML\Response();
-		$num_valid = count(array_filter($this->invoke('components', $context, $child_response)));
+		$child_event = new VXML\Event($event->getRule(), $event->getContext(), new VXML\Response());
+		$num_valid = count(array_filter($this->invoke('components', $child_event)));
 		
 		$min_limit = ($this->getOption('min') == self::NUM_RULES ? $num_components : $this->getOption('min'));
 		if($num_valid < $min_limit)
 		{
-			$response->merge($child_response);
-			$response->addFailure($this, 'min limit reached (valid: ' . $num_valid . ', min: ' . $min_limit . ')');
+			$event->getResponse()->merge($child_event->getResponse());
+			$event->getResponse()->addFailure($this, 'min limit reached (valid: ' . $num_valid . ', min: ' . $min_limit . ')');
 			return false;
 		}
 		
 		$max_limit = ($this->getOption('max') == self::NUM_RULES ? $num_components : $this->getOption('max'));
 		if($num_valid > $max_limit)
 		{
-			$response->merge($child_response);
-			$response->addFailure($this, 'max limit reached (valid: ' . $num_valid . ', max: ' . $max_limit . ')');
+			$event->getResponse()->merge($child_event->getResponse());
+			$event->getResponse()->addFailure($this, 'max limit reached (valid: ' . $num_valid . ', max: ' . $max_limit . ')');
 			return false;
 		}
 		
-		$child_response->convertFailuresToDebug();
-		$response->merge($child_response);
+		$child_event->getResponse()->convertFailuresToDebug();
+		$event->getResponse()->merge($child_event->getResponse());
 		return true;
-	}
-	
-// PRIVATE
-	private function getThresholdOption($name)
-	{
-		$num = $this->getOption($name);
-		return $num == self::NUM_RULES ? count($this->getListeners('components')) : $num;
 	}
 }

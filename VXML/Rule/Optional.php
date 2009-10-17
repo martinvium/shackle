@@ -8,11 +8,11 @@ require_once 'DecoratorAbstract.php';
 final class Optional extends DecoratorAbstract
 {
 	/**
-	 * @param VXML\Context $context
-	 * @param VXML\Response $response
+	 * @param VXML\Event $event
 	 */
-	protected function evaluate($context, $response)
+	protected function evaluate($event)
 	{
+		$context = $event->getContext();
 		$context->save();
 		$context->setRelativeTarget($this->rule->getRelativeTarget());
 		$values = $context->getPassedValues(\VXML\Context::ALL_TARGETS);
@@ -21,11 +21,11 @@ final class Optional extends DecoratorAbstract
 		foreach($values as $value)
 		{
 			if(! empty($value))
-				return $this->rule->execute($context, $response);
+				return $this->rule->execute($context, $event->getResponse());
 		}
 		
-		$response->addDebug($this, 'value was optional and empty');
-		$this->rule->invoke('optional', $context, $response);
+		$event->getResponse()->addDebug($this, 'value was optional and empty');
+		$this->rule->invoke('optional', $event);
 		return true;
 	}
 }

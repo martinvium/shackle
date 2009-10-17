@@ -1,6 +1,8 @@
 <?php
 namespace VXML\Rule;
 
+use VXML;
+
 require_once 'RuleAbstract.php';
 
 final class Callback extends RuleAbstract
@@ -11,10 +13,9 @@ final class Callback extends RuleAbstract
 	}
 	
 	/**
-	 * @param VXML\Context $context
-	 * @param VXML\Response $response
+	 * @param VXML\Event $event
 	 */
-	protected function evaluate($context, $response)
+	protected function evaluate($event)
 	{
 		$callback = $this->getOption('callback');
 		
@@ -22,12 +23,12 @@ final class Callback extends RuleAbstract
 			throw new \InvalidArgumentException('callback is undefined');
 		
 		$this->addListener('callback', $callback);
-		if(count(array_filter($this->invoke('callback', $context, $response))) == 1)
+		if(count(array_filter($this->invoke('callback', $event))) == 1)
 		{
 			return true;
 		}
 		
-		$response->addFailure($this);
+		$event->getResponse()->addFailure($this);
 		return false;
 	}
 }

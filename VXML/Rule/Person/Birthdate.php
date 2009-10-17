@@ -1,5 +1,7 @@
 <?php
 namespace VXML\Rule\Person;
+use VXML;
+
 use VXML\Rule\CompositeAbstract;
 
 require_once 'VXML/Rule/CompositeAbstract.php';
@@ -15,17 +17,16 @@ final class Birthdate extends CompositeAbstract
 	}
 	
 	/**
-	 * @param VXML_Context $context
-	 * @param VXML_Response $response
+	 * @param VXML\Event $event
 	 */
-	public function evaluate($context, $response)
+	public function evaluate($event)
 	{
-		if(! parent::evaluate($context, $response))
+		if(! parent::evaluate($event))
 		{
 			return false;
 		}
 		
-		$values = $context->getPassedValues(array('year', 'month', 'day'));
+		$values = $event->getContext()->getPassedValues(array('year', 'month', 'day'));
 		
 		date_default_timezone_set('Europe/Copenhagen');
 		$datetime = date_create();
@@ -36,7 +37,7 @@ final class Birthdate extends CompositeAbstract
 			return true;
 		}
 		
-		$response->addFailure($this, 'datetime: ' . $datetime->format('Y-m-d H:i:s'));
+		$event->getResponse()->addFailure($this, 'datetime: ' . $datetime->format('Y-m-d H:i:s'));
 		return false;
 	}
 }

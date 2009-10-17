@@ -1,6 +1,8 @@
 <?php
 namespace VXML\Rule;
 
+use VXML;
+
 require_once 'RuleAbstract.php';
 
 final class Equals extends RuleAbstract
@@ -11,20 +13,19 @@ final class Equals extends RuleAbstract
 	}
 	
 	/**
-	 * @param VXML\Context $context
-	 * @param VXML\Response $response
+	 * @param VXML\Event $event
 	 */
-	protected function evaluate($context, $response)
+	protected function evaluate($event)
 	{
 		if($this->getOption('equals') === null)
 			throw new \InvalidArgumentException('equals is undefined');
 		
-		if($context->getPassedValue() == $this->getOption('equals'))
+		if($event->getContext()->getPassedValue() == $this->getOption('equals'))
 		{
 			return true;
 		}
 		
-		$response->addFailure($this, 'value not equal (value: ' . $context->getPassedValue() . ', should equal: ' . $this->getOption('equals') . ')');
+		$event->getResponse()->addFailure($this, 'value not equal (value: ' . $event->getContext()->getPassedValue() . ', should equal: ' . $this->getOption('equals') . ')');
 		return false;
 	}
 }

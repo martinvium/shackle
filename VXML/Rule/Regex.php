@@ -1,6 +1,8 @@
 <?php
 namespace VXML\Rule;
 
+use VXML;
+
 require_once 'RuleAbstract.php';
 
 final class Regex extends RuleAbstract
@@ -11,20 +13,19 @@ final class Regex extends RuleAbstract
 	}
 	
 	/**
-	 * @param VXML\Context $context
-	 * @param VXML\Response $response
+	 * @param VXML\Event $event
 	 */
-	protected function evaluate($context, $response)
+	protected function evaluate($event)
 	{
 		if($this->getOption('pattern') === null)
 			throw new \InvalidArgumentException('pattern is undefined');
 		
-		if(preg_match($this->getOption('pattern'), $context->getPassedValue()))
+		if(preg_match($this->getOption('pattern'), $event->getContext()->getPassedValue()))
 		{
 			return true;
 		}
 		
-		$response->addFailure($this);
+		$event->getResponse()->addFailure($this);
 		return false;
 	}
 }

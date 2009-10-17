@@ -1,21 +1,22 @@
 <?php
 namespace VXML\Rule;
 
+use VXML;
+
 require_once 'DecoratorAbstract.php';
 
 final class Silence extends DecoratorAbstract
 {
 	/**
-	 * @param VXML\Context $context
-	 * @param VXML\Response $response
+	 * @param VXML\Event $event
 	 */
-	protected function evaluate($context, $response)
+	protected function evaluate($event)
 	{
-		if(! $this->rule->execute($context, $response))
+		$response = $event->getResponse();
+		if(! $this->rule->execute($event->getContext(), $response))
 		{
 			$message = $response->removeByRule($this->rule);
 			$response->addDebug($message['rule'], $message['debug'] . ' (silenced)');
-			return false;
 		}
 		
 		return true;

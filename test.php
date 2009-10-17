@@ -56,15 +56,15 @@ $set->add(new Rule\Iterate(new Rule\Equals('ekstra4', array('equals' => 2, 'mess
 
 // forward target
 $set2 = $set->add(new Rule\Set('ekstra5'));
-$rule_a = $set2->add(new Rule\Equals('a', array('equals' => 124, 'message' => 'field a is invalid')));
+$rule_a = $set2->add(new Rule\Equals('a', array('equals' => 123, 'message' => 'field a is invalid')));
 $rule_a->addListener('valid', 'cb_rule_success');
-$set2->add(new Rule\Equals('b', array('equals' => 431, 'message' => 'field b is invalid')));
+$set2->add(new Rule\Equals('b', array('equals' => 432, 'message' => 'field b is invalid')));
 
 // forward + iterate
-$set3 = $set->add(new Rule\Iterate(new Rule\Set('ekstra6')));
+$set3 = $set->add(new Rule\Iterate(new Rule\Set('ekstra6', array('min' => 1))));
 $set3->add(new Rule\Equals('email', array('equals' => 'test2@test.dk', 'message' => 'ekstra6 failed (email is invalid)')));
 $set3->add(new Rule\Equals('firstname', array('equals' => 'bla2', 'message' => 'ekstra6 failed (firstname is invalid)')));
-$set3->add(new Rule\Equals('/ekstra1', array('equals' => 154, 'message' => 'ekstra6 failed (absolute test)')));
+$set3->add(new Rule\Equals('/ekstra1', array('equals' => 153, 'message' => 'ekstra6 failed (absolute test)')));
 
 // composite rules
 $set->add(new Rule\Person\Birthdate(array('b_year', 'b_month', 'b_day'), array('message' => 'birthdate failed')));
@@ -86,6 +86,8 @@ $ret = $set->execute(new VXML\Context($data), $response);
 // re-map values according to an array of values
 //$set->addListener('pre', new Rule\Filter_Map('ekstra1', array('map' => array('1' => 'Ja', '2' => 'Nej'))));
 //$set->addListener('post', new Rule\Filter_Map('ekstra2', array('map' => $campaign->strings->get('something'))));
+
+//$set->add()
 
 // callback
 //$cb_rule = $set->add(new Rule\Callback('ekstra3[]', null, array('callback' => function($event) {

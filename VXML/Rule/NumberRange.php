@@ -1,6 +1,8 @@
 <?php
 namespace VXML\Rule;
 
+use VXML;
+
 require_once 'RuleAbstract.php';
 
 final class NumberRange extends RuleAbstract
@@ -12,24 +14,23 @@ final class NumberRange extends RuleAbstract
 	}
 	
 	/**
-	 * @param VXML\Context $context
-	 * @param VXML\Response $response
+	 * @param VXML\Event $event
 	 */
-	protected function evaluate($context, $response)
+	protected function evaluate($event)
 	{
-		$value = $context->getPassedValue();
+		$value = $event->getContext()->getPassedValue();
 		
 		$min = $this->getOption('min');
 		if($min && $value < $min)
 		{
-			$response->addFailure($this, 'minimum value for range reached (' . $value . ' < ' . $min . ')');
+			$event->getResponse()->addFailure($this, 'minimum value for range reached (' . $value . ' < ' . $min . ')');
 			return false;
 		}
 		
 		$max = $this->getOption('max');
 		if($max && $value > $max)
 		{
-			$response->addFailure($this, 'maximum value for range reached (' . $value . ' > ' . $max . ')');
+			$event->getResponse()->addFailure($this, 'maximum value for range reached (' . $value . ' > ' . $max . ')');
 			return false;
 		}
 		
