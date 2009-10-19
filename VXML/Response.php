@@ -1,8 +1,5 @@
 <?php
 namespace VXML;
-use VXML\Translator;
-
-require_once 'VXML/Translator/None.php';
 
 final class Response
 {
@@ -14,11 +11,9 @@ final class Response
 	
 	private $resolved_target = null;
 	
-	private $translator = null;
-	
 	public function __construct()
 	{
-		$this->translator = new Translator\None();
+		
 	}
 	
 	/**

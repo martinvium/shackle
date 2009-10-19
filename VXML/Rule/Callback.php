@@ -3,7 +3,7 @@ namespace VXML\Rule;
 
 use VXML;
 
-require_once 'RuleAbstract.php';
+require_once 'VXML/RuleAbstract.php';
 
 final class Callback extends RuleAbstract
 {

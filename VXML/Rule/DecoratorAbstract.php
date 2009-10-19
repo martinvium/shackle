@@ -1,7 +1,7 @@
 <?php
 namespace VXML\Rule;
 
-require_once 'RuleAbstract.php';
+require_once 'VXML/RuleAbstract.php';
 
 abstract class DecoratorAbstract extends RuleAbstract
 {

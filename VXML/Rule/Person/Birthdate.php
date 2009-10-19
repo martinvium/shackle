@@ -1,19 +1,24 @@
 <?php
 namespace VXML\Rule\Person;
-use VXML;
 
+use VXML;
 use VXML\Rule\CompositeAbstract;
 
 require_once 'VXML/Rule/CompositeAbstract.php';
 
 final class Birthdate extends CompositeAbstract
 {
-	public function __construct($year_month_day, $message, $options = array())
+	public function __construct($year_month_day, $options = array())
 	{
 		if(! is_array($year_month_day))
 			throw new \InvalidArgumentException('you must specify year, month and day targets for birthdate rule');
 		
-		parent::__construct($year_month_day, $message, $options);
+		parent::__construct($year_month_day, $options);
+	}
+	
+	public function initialize()
+	{
+		$this->setOptions(array('message' => 'birthdate test failed'));
 	}
 	
 	/**

@@ -3,7 +3,7 @@ namespace VXML\Rule;
 
 use VXML;
 
-require_once 'RuleAbstract.php';
+require_once 'VXML/RuleAbstract.php';
 
 final class Regex extends RuleAbstract
 {
@@ -17,15 +17,12 @@ final class Regex extends RuleAbstract
 	 */
 	protected function evaluate($event)
 	{
-		if($this->getOption('pattern') === null)
-			throw new \InvalidArgumentException('pattern is undefined');
-		
 		if(preg_match($this->getOption('pattern'), $event->getContext()->getPassedValue()))
 		{
 			return true;
 		}
 		
-		$event->getResponse()->addFailure($this);
+		$event->getResponse()->addFailure($this, 'regex failed (value: ' . $event->getContext()->getPassedValue() . ', pattern: ' . $this->getOption('pattern') . ')');
 		return false;
 	}
 }

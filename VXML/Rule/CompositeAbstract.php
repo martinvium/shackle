@@ -3,21 +3,18 @@ namespace VXML\Rule;
 
 use VXML;
 
-require_once 'RuleAbstract.php';
+require_once 'VXML/RuleAbstract.php';
 
 abstract class CompositeAbstract extends RuleAbstract
 {
 	const NUM_RULES = 'VXML_Rule_CompositeAbstract::NUM_RULES';
 	
-	public function __construct($target, $options = array())
-	{
-		parent::__construct($target, $options);
-	}
-	
-	protected function initialize()
+	public function __construct($target = VXML\Context::RELATIVE, $options = array())
 	{
 		$this->addOption('min', self::NUM_RULES);
 		$this->addOption('max', self::NUM_RULES);
+		
+		parent::__construct($target, $options);
 	}
 	
 	/**
