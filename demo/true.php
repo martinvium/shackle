@@ -16,7 +16,10 @@ $data = array(
 	'b_month' => 10,
 	'b_day'   => 10,
 	'email'   => 'test43@test.dk',
-	'ekstra7' => 'Ja'
+	'ekstra7' => 'Ja',
+	'stringlength' => 'fesfest43ttdesf',
+	'stringlength2' => 'fesfest43ttdesf',
+	'whitelist' => 'test_b'
 );
 
 $data['ekstra6'][] = array('email' => 'test1@test.dk', 'firstname' => 'bla1');

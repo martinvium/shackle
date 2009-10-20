@@ -34,6 +34,11 @@ $chainer->addListener('invalid', new Rule\Equal('/ekstra1', array('equal' => 153
 
 $set->add(new Rule\Callback('email', array('callback' => 'cb_rule_test', 'message' => 'rimelig')));
 
+$set->add(new Rule\StringLength('stringlength', array('min' => 5, 'max' => 20)));
+$set->add(new Rule\StringLength('stringlength2', array('min' => 5, 'max' => 20)));
+
+$set->add(new Rule\Invert(new Rule\Whitelist('whitelist', array('options' => array('test_b')))));
+
 // TODO trim field and replace values
 //$set->addListener('pre', new Rule\Filter\Trim('ekstra7'));
 //$set->addListener('pre', new Rule\Filter\Replace('ekstra7', array('search' => 'Ja', 'replace' => 'Nej')));

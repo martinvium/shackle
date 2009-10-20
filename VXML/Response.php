@@ -92,22 +92,32 @@ final class Response
 		return $this->messages;
 	}
 	
+	public function getSuccessMessages()
+	{
+		return $this->getMessagesByType(self::MSG_SUCCESS);
+	}
+	
 	/**
 	 * Get failures
 	 * 
 	 * @return array
 	 */
-	public function getFailures()
+	public function getFailureMessages()
 	{
-		$errors = array();
+		return $this->getMessagesByType(self::MSG_FAILURE);
+	}
+	
+	private function getMessagesByType($type)
+	{
+		$messages = array();
 		foreach($this->messages as $msg)
 		{
-			if($msg['error'])
+			if($msg['type'] == $type)
 			{
-				$errors[] = $msg;
+				$messages[] = $msg;
 			}
 		}
-		return $errors;
+		return $messages;
 	}
 	
 	/**
