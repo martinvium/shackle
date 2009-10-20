@@ -1,6 +1,9 @@
 <?php
 namespace VXML;
 
+/**
+ * Context acts as a front for rules to the input data
+ */
 class Context
 {
 	const SEPERATOR   = '/';
@@ -9,27 +12,61 @@ class Context
 	const PARENT	  = '..';
 	const ALL_TARGETS = 'VXML_Context::ALL_ARGS';
 	
+	/**
+	 * Input data for rules to be applied to
+	 * 
+	 * @var array
+	 */
 	private $data = array();
 	
+	/**
+	 * Target(s) currently being processed
+	 * 
+	 * @var mixed
+	 */
 	private $resolved_targets = array();
 	
+	/**
+	 * Stack for saving/restoring targets being processed
+	 * 
+	 * @var array
+	 */
 	private $resolved_targets_stack = array();
 	
+	/**
+	 * @param array $data
+	 */
 	public function __construct($data)
 	{
 		$this->data = $data;
 	}
 	
+	/**
+	 * Save current target on stack
+	 * 
+	 * @return void
+	 */
 	public function save()
 	{
 		$this->resolved_targets_stack[] = $this->resolved_targets;
 	}
 	
+	/**
+	 * Restore last saved target from stack
+	 * 
+	 * @return void
+	 */
 	public function restore()
 	{
 		$this->resolved_targets = array_pop($this->resolved_targets_stack);
 	}
 	
+	/**
+	 * Update current target relative to the previous one
+	 * 
+	 * @param mixed $targets
+	 * @return void
+	 */
 	public function setRelativeTarget($targets)
 	{
 		if(is_scalar($targets))
@@ -63,11 +100,17 @@ class Context
 		$this->resolved_targets = $resolved_targets;
 	}
 	
+	/**
+	 * Get current target(s)
+	 */
 	public function getResolvedTarget()
 	{
 		return $this->resolved_targets;
 	}
 	
+	/**
+	 * Get value from context based on current target
+	 */
 	public function getPassedValue()
 	{
 		if(count($this->resolved_targets) > 1)
@@ -77,7 +120,10 @@ class Context
 	}
 	
 	/**
-	 * @param array $field_proto
+	 * Get array of values from context based on current target, validated against 
+	 * the proto passed as first parameter 
+	 * 
+	 * @param array $proto
 	 */
 	public function getPassedValues($proto)
 	{
@@ -98,6 +144,11 @@ class Context
 		return $values;
 	}
 	
+	/**
+	 * Test if a specific target is absolute (e.g. prefixed by /)
+	 * 
+	 * @param string $target
+	 */
 	private function isAbsolute($target)
 	{
 		if(! is_scalar($target))
@@ -106,6 +157,11 @@ class Context
 		return (substr($target, 0, 1) == self::SEPERATOR);
 	}
 	
+	/**
+	 * Parse through data to find a specific targets value
+	 * 
+	 * @param string $target
+	 */
 	private function getValueFromTarget($target)
 	{
 		$data = $this->data;

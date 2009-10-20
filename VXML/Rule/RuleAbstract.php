@@ -7,15 +7,41 @@ require_once 'VXML/Event.php';
 
 abstract class RuleAbstract
 {
+	/**
+	 * Relative target of the rule, to be applied to the context
+	 * 
+	 * @var array
+	 */
 	private $target = array();
 	
+	/**
+	 * Last target of the rule, after it has been applied to the context
+	 * WARNING: This can change for rules that are applied multiple times
+	 * e.g. by Iterator
+	 * 
+	 * @var array
+	 */
 	private $resolved_target = array();
 	
+	/**
+	 * Rules options
+	 * 
+	 * @var array
+	 */
 	private $options = array();
 	
+	/**
+	 * Rules and callbacks listening to this rules events
+	 * 
+	 * @var array
+	 */
 	private $event_listeners = array();
 	
 // MAGIC
+	/**
+	 * @param mixed $target
+	 * @param array $options OPTIONAL
+	 */
 	public function __construct($target, $options = array())
 	{
 		$this->setRelativeTarget($target);
@@ -42,6 +68,7 @@ abstract class RuleAbstract
 	 * 
 	 * @param string $event
 	 * @param string|VXML\Rule\RuleAbstract $rule
+	 * @return $rule
 	 */
 	public function addListener($event, $rule)
 	{
@@ -82,13 +109,20 @@ abstract class RuleAbstract
 		return $ret;
 	}
 	
+	/**
+	 * Get the rules failure message
+	 * 
+	 * @return string
+	 */
 	public function getMessage()
 	{
 		return $this->getOption('message');
 	}
 	
 	/**
-	 * @return string
+	 * Get the relative target of the rule
+	 * 
+	 * @return array
 	 */
 	public function getRelativeTarget()
 	{
@@ -96,6 +130,8 @@ abstract class RuleAbstract
 	}
 	
 	/**
+	 * Set the relative target of the rule
+	 * 
 	 * @param string $target
 	 */
 	final public function setRelativeTarget($target)
@@ -103,7 +139,14 @@ abstract class RuleAbstract
 		$this->target = $target;
 	}
 	
-	public function getResolvedTarget()
+	/**
+	 * Get the last target of the rule, after it has been applied to the context
+	 * WARNING: This can change for rules that are applied multiple times
+	 * e.g. by Iterator
+	 * 
+	 * @return array
+	 */
+	final public function getResolvedTarget()
 	{
 		return $this->resolved_target;
 	}
@@ -162,6 +205,9 @@ abstract class RuleAbstract
 	}
 	
 	/**
+	 * Get option by name
+	 * 
+	 * @throws InvalidArgumentException if option name is unknown
 	 * @param string $name
 	 * @return mixed
 	 */
@@ -174,6 +220,9 @@ abstract class RuleAbstract
 	}
 	
 	/**
+	 * Register an option with a rule, if the default value is null, it is required
+	 * to be filled out in userland.
+	 * 
 	 * @param string $name
 	 * @param mixed $default_value
 	 * @return void
@@ -184,6 +233,8 @@ abstract class RuleAbstract
 	}
 	
 	/**
+	 * Set options of a rule
+	 * 
 	 * @param array $options
 	 * @return void
 	 */
@@ -202,6 +253,8 @@ abstract class RuleAbstract
 	}
 	
 	/**
+	 * Get all event listeners by event type
+	 * 
 	 * @param string $type
 	 * @return array
 	 */

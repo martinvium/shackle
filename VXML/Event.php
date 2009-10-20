@@ -1,12 +1,33 @@
 <?php
 namespace VXML;
 
+/**
+ * Event is passed to rules and callbacks, when they are executed. It
+ * contains the parent rule, current context updated with the rules
+ * target and a response object, on which to add messages.
+ */
 final class Event
 {
+	/**
+	 * @var VXML\Rule\RuleAbstract
+	 */
 	private $rule;
+	
+	/**
+	 * @var VXML\Context
+	 */
 	private $context;
+	
+	/**
+	 * @var VXML\Response
+	 */
 	private $response;
 	
+	/**
+	 * @param Rule\RuleAbstract $rule
+	 * @param Context $context
+	 * @param Response $response
+	 */
 	public function __construct(Rule\RuleAbstract $rule, Context $context, Response $response)
 	{
 		$this->rule = $rule;
