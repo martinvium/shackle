@@ -11,7 +11,7 @@ class Loader
 		}
 	
 		$file = str_replace('_', DIRECTORY_SEPARATOR, $class) . '.php';
-		include $file;
+		require_once $file;
 	}
 	
 	static public function registerAutoload()
