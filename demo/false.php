@@ -3,11 +3,8 @@ use VXML\Rule;
 
 set_include_path(get_include_path() . PATH_SEPARATOR . '..');
 
-require_once 'VXML/Context.php';
-require_once 'VXML/Response.php';
-require_once 'VXML/Rule/Import.php';
-
-//require_once 'validators.php';
+require_once 'VXML/Loader.php';
+VXML\Loader::registerAutoload();
 
 $data = array(
 	'ekstra1' => 8000,
