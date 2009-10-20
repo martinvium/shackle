@@ -1,9 +1,7 @@
 <?php
 namespace VXML\Rule;
 
-use VXML;
-
-require_once 'VXML/RuleAbstract.php';
+require_once 'RuleAbstract.php';
 
 final class Callback extends RuleAbstract
 {

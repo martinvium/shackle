@@ -3,7 +3,8 @@ namespace VXML\Rule;
 
 use VXML;
 
-require_once 'VXML/RuleAbstract.php';
+require_once 'RuleAbstract.php';
+require_once 'VXML/Context.php';
 
 abstract class CompositeAbstract extends RuleAbstract
 {
