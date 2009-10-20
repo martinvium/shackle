@@ -38,10 +38,6 @@ $rule_a->addListener('valid', 'cb_rule_success');
 
 // forward + iterate
 $set->add(new Rule\Import('ekstra6', array('path' => 'validators2.php')));
-//$set3 = $set->add(new Rule\Iterate(new Rule\Set('ekstra6', array('min' => 1))));
-//$set3->add(new Rule\Equals('email', array('equals' => 'test2@test.dk', 'message' => 'ekstra6 failed (email is invalid)')));
-//$set3->add(new Rule\Equals('firstname', array('equals' => 'bla2', 'message' => 'ekstra6 failed (firstname is invalid)')));
-//$set3->add(new Rule\Equals('/ekstra1', array('equals' => 153, 'message' => 'ekstra6 failed (absolute test)')));
 
 // composite rules
 $set->add(new Rule\Person\Birthdate(array('b_year', 'b_month', 'b_day'), array('message' => 'birthdate failed')));
@@ -52,9 +48,6 @@ $chainer->addListener('valid', new Rule\Equals('/ekstra1', array('equals' => 154
 $chainer->addListener('invalid', new Rule\Equals('/ekstra1', array('equals' => 153, 'message' => 'msg')));
 
 $set->add(new Rule\Callback('email', array('callback' => 'cb_rule_test', 'message' => 'rimelig')));
-
-// TODO apply a remote ruleset into a local context
-//$set->add(new Rule\Import('ekstra6', null, array('path' => 'test2.php', 'map' => array('remap' => 'targets'))));
 
 // TODO trim field and replace values
 //$set->addListener('pre', new Rule\Filter\Trim('ekstra7'));
