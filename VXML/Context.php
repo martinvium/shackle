@@ -22,7 +22,7 @@ class Context
 	/**
 	 * Target(s) currently being processed
 	 * 
-	 * @var mixed
+	 * @var array
 	 */
 	private $resolved_targets = array();
 	
@@ -64,6 +64,7 @@ class Context
 	/**
 	 * Update current target relative to the previous one
 	 * 
+	 * @todo rename to setTarget() target doesnt have to be relative
 	 * @param mixed $targets
 	 * @return void
 	 */
@@ -102,6 +103,9 @@ class Context
 	
 	/**
 	 * Get current target(s)
+	 * 
+	 * @todo rename to getResolvedTargets() always returns an array
+	 * @return array of one or more targets
 	 */
 	public function getResolvedTarget()
 	{
@@ -123,7 +127,9 @@ class Context
 	 * Get array of values from context based on current target, validated against 
 	 * the proto passed as first parameter 
 	 * 
-	 * @param array $proto
+	 * @throws InvalidArgumentException if target does not match proto
+	 * @param array $proto map values to proto
+	 * @return array of values matched by target and proto
 	 */
 	public function getPassedValues($proto)
 	{
@@ -148,6 +154,7 @@ class Context
 	 * Test if a specific target is absolute (e.g. prefixed by /)
 	 * 
 	 * @param string $target
+	 * @return boolean
 	 */
 	private function isAbsolute($target)
 	{
@@ -161,6 +168,7 @@ class Context
 	 * Parse through data to find a specific targets value
 	 * 
 	 * @param string $target
+	 * @return array
 	 */
 	private function getValueFromTarget($target)
 	{

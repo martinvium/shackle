@@ -5,6 +5,13 @@ use VXML;
 
 require_once 'DecoratorAbstract.php';
 
+/**
+ * Silences the decorated rule, changing any failures to debug. You will
+ * still be able to hook into the failure via listeners.
+ * 
+ * Example:
+ * new Rule\Silent(new Rule\Equal(target, options))
+ */
 final class Silent extends DecoratorAbstract
 {
 	/**

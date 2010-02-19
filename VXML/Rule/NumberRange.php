@@ -5,6 +5,9 @@ use VXML;
 
 require_once 'RuleAbstract.php';
 
+/**
+ * @todo rename to Range, shorter and number seems somewhat redundant?
+ */
 final class NumberRange extends RuleAbstract
 {
 	protected function initialize()
@@ -21,13 +24,17 @@ final class NumberRange extends RuleAbstract
 		$value = $event->getContext()->getPassedValue();
 		
 		$min = $this->getOption('min');
+		$max = $this->getOption('max');
+		
+		if(! $min && ! $max)
+			throw new \InvalidArgumentException('either min or max must be defined in rule: ' . get_class($this) . ' on target: ' . $this->getRelativeTarget());
+		
 		if($min && $value < $min)
 		{
 			$event->getResponse()->addFailure($this, 'minimum value for range reached (' . $value . ' < ' . $min . ')');
 			return false;
 		}
 		
-		$max = $this->getOption('max');
 		if($max && $value > $max)
 		{
 			$event->getResponse()->addFailure($this, 'maximum value for range reached (' . $value . ' > ' . $max . ')');

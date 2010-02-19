@@ -13,6 +13,7 @@ final class StringLength extends RuleAbstract
 	{
 		$this->addOption('min', 0);
 		$this->addOption('max', self::MAX_LENGTH);
+		$this->addOption('charset', 'utf-8');
 	}
 	
 	/**
@@ -21,16 +22,20 @@ final class StringLength extends RuleAbstract
 	protected function evaluate($event)
 	{
 		$value = $event->getContext()->getPassedValue();
-		$strlen = mb_strlen($value, 'utf-8');
+		$strlen = iconv_strlen($value, $this->getOption('charset'));
 		
 		$min = $this->getOption('min');
+		$max = $this->getOption('max');
+		
+		if(! $min && $max == self::MAX_LENGTH)
+			throw new \InvalidArgumentException('either min or max must be defined in rule: ' . get_class($this) . ' on target: ' . $this->getRelativeTarget());
+		
 		if($strlen < $min)
 		{
 			$event->getResponse()->addFailure($this, 'string to short (' . $min . '<' . $strlen . ')');
 			return false;
 		}
 		
-		$max = $this->getOption('max');
 		if($max === self::MAX_LENGTH)
 		{
 			$max = $strlen;

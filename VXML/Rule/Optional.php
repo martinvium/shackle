@@ -5,6 +5,13 @@ use VXML;
 
 require_once 'DecoratorAbstract.php';
 
+/**
+ * Make decorated rule optional. The value will still be validated, 
+ * but if value is empty, the rule will be successfull.
+ * 
+ * Example
+ * new Rule\Optional(new Rule\Equal(target, options))
+ */
 final class Optional extends DecoratorAbstract
 {
 	/**

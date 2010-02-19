@@ -128,6 +128,16 @@ final class Response
 	}
 	
 	/**
+	 * Get debug messages
+	 * 
+	 * @return array
+	 */
+	public function getDebugMessages()
+	{
+		return $this->getMessagesByType(self::MSG_DEBUG);
+	}
+	
+	/**
 	 * Get messages by type
 	 * 
 	 * @param string $type

@@ -17,9 +17,6 @@ final class Callback extends RuleAbstract
 	{
 		$callback = $this->getOption('callback');
 		
-		if($callback === null)
-			throw new \InvalidArgumentException('callback is undefined');
-		
 		$this->addListener('callback', $callback);
 		if(count(array_filter($this->invoke('callback', $event))) == 1)
 		{
