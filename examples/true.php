@@ -1,7 +1,7 @@
 <?php
 use VXML\Rule;
 
-set_include_path(get_include_path() . PATH_SEPARATOR . '..');
+set_include_path(get_include_path() . PATH_SEPARATOR . '../library');
 
 require_once 'VXML/Loader.php';
 VXML\Loader::registerAutoload();
