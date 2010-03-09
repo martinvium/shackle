@@ -1,0 +1,25 @@
+	VXML - Complex Input Validation
+
+WHAT IS IT
+
+  VXML is a library written in PHP, to assist with building validation 
+  schemes for complex forms - often consisting of many fields depending 
+  on each other.
+
+  Serialization to javascript is also a planned feature.
+  Which will allow writing validation once, and apply it both client
+  and server side.
+
+SOFTWARE REQUIREMENTS
+
+  * PHP 5.3+ because of it's extensive use of the namespaces feature.
+  * PHPUnit 3.5+ is used to run the test suite.
+  
+DOCUMENTATION
+
+  There is currently no documentation available, so have a look at the
+  unit tests or the examples folder, to get an idea of how it works.
+
+LICENSING
+
+  See the LICENSE if in the root folder.
