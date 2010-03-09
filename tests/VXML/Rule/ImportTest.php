@@ -7,21 +7,21 @@ class VXML_Rule_ImportTest extends VXML_Rule_TestCase
 {
 	public function testImportPHPFile()
 	{
-		$this->markTestIncomplete();
+		$rule = new Rule\Import('.', array('path' => 'res/import.php'));
+		$this->assertTrue($rule->execute($this->context, $this->response));
 	}
 	
-	public function testStaticGetInstance()
-	{
-		$this->markTestIncomplete();
-	}
-	
+	/**
+	 * @expectedException \InvalidArgumentException
+	 */
 	public function testMissingPathOption()
 	{
-		$this->markTestIncomplete();
+		$rule = new Rule\Import('.', array());
+		$rule->execute($this->context, $this->response);
 	}
 	
 	public function testCompositeFeatures()
 	{
-		$this->markTestIncomplete();
+		$this->markTestIncomplete('Test add, min, max etc');
 	}
 }
