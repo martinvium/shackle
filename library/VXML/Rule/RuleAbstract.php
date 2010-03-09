@@ -89,7 +89,7 @@ abstract class RuleAbstract
 		$this->resolved_target = $context->getResolvedTarget();
 		
 		$event = new VXML\Event($this, $context, $response);
-		$this->invoke('pre', $event);
+		$this->invoke('before', $event);
 		
 		$ret = $this->evaluate($event);
 		if($ret)
@@ -99,10 +99,10 @@ abstract class RuleAbstract
 		}
 		else 
 		{
-			$this->invoke('invalid', $event);
+			$this->invoke('failure', $event);
 		}
 		
-		$this->invoke('post', $event);
+		$this->invoke('after', $event);
 		
 		$context->restore();
 		
