@@ -1,10 +1,8 @@
 <?php
 namespace VXML\Rule\Person;
 
-use VXML;
+use VXML\Event;
 use VXML\Rule\CompositeAbstract;
-
-require_once 'VXML/Rule/CompositeAbstract.php';
 
 final class Birthdate extends CompositeAbstract
 {
@@ -22,9 +20,9 @@ final class Birthdate extends CompositeAbstract
 	}
 	
 	/**
-	 * @param VXML\Event $event
+	 * @param Event $event
 	 */
-	public function evaluate($event)
+	public function evaluate(Event $event)
 	{
 		if(! parent::evaluate($event))
 		{

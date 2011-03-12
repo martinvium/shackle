@@ -1,9 +1,9 @@
 <?php
 namespace VXML\Rule;
 
-use VXML;
+use VXML\Context;
+use VXML\Event;
 
-require_once 'DecoratorAbstract.php';
 
 /**
  * Make decorated rule optional. The value will still be validated, 
@@ -15,14 +15,14 @@ require_once 'DecoratorAbstract.php';
 final class Optional extends DecoratorAbstract
 {
 	/**
-	 * @param VXML\Event $event
+	 * @param Event $event
 	 */
-	protected function evaluate($event)
+	protected function evaluate(Event $event)
 	{
 		$context = $event->getContext();
 		$context->save();
 		$context->setRelativeTarget($this->rule->getRelativeTarget());
-		$values = $context->getPassedValues(\VXML\Context::ALL_TARGETS);
+		$values = $context->getPassedValues(Context::ALL_TARGETS);
 		$context->restore();
 		
 		foreach($values as $value)

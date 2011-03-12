@@ -1,11 +1,9 @@
 <?php
 namespace VXML\Rule;
 
-use VXML;
+use VXML\Event;
 
-require_once 'RuleAbstract.php';
-
-final class Equal extends RuleAbstract
+class Equal extends RuleAbstract
 {
 	protected function initialize()
 	{
@@ -13,9 +11,9 @@ final class Equal extends RuleAbstract
 	}
 	
 	/**
-	 * @param VXML\Event $event
+	 * @param Event $event
 	 */
-	protected function evaluate($event)
+	protected function evaluate(Event $event)
 	{
 		if($event->getContext()->getPassedValue() == $this->getOption('equal'))
 		{

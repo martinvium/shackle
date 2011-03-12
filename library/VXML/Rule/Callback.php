@@ -1,7 +1,7 @@
 <?php
 namespace VXML\Rule;
 
-require_once 'RuleAbstract.php';
+use VXML\Event;
 
 final class Callback extends RuleAbstract
 {
@@ -11,9 +11,9 @@ final class Callback extends RuleAbstract
 	}
 	
 	/**
-	 * @param VXML\Event $event
+	 * @param Event $event
 	 */
-	protected function evaluate($event)
+	protected function evaluate(Event $event)
 	{
 		$callback = $this->getOption('callback');
 		

@@ -1,19 +1,19 @@
 <?php
 namespace VXML\Rule;
 
-require_once 'RuleAbstract.php';
+use VXML\Rule;
 
 abstract class DecoratorAbstract extends RuleAbstract
 {
 	/**
-	 * @var VXML\Rule\RuleAbstract
+	 * @var Rule
 	 */
 	protected $rule;
 	
 	/**
-	 * @param VXML\Rule\RuleAbstract $rule
+	 * @param Rule $rule
 	 */
-	public function __construct($rule, $options = array())
+	public function __construct(Rule $rule, $options = array())
 	{
 		$this->rule = $rule;
 		

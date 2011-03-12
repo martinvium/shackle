@@ -1,21 +1,20 @@
 <?php
 namespace VXML\Rule;
 
-use VXML;
-
-require_once 'RuleAbstract.php';
+use VXML\Context;
+use VXML\Event;
 
 final class Failure extends RuleAbstract
 {
 	public function __construct()
 	{
-		parent::__construct(VXML\Context::RELATIVE);
+		parent::__construct(Context::RELATIVE);
 	}
 	
 	/**
-	 * @param VXML\Event $event
+	 * @param Event $event
 	 */
-	protected function evaluate($event)
+	protected function evaluate(Event $event)
 	{
 		$event->getResponse()->addFailure($this, 'failure rule always fails...');
 		return false;

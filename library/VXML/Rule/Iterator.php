@@ -1,9 +1,8 @@
 <?php
 namespace VXML\Rule;
 
-use VXML;
-
-require_once 'DecoratorAbstract.php';
+use VXML\Event;
+use VXML\Response;
 
 final class Iterator extends DecoratorAbstract
 {
@@ -18,9 +17,9 @@ final class Iterator extends DecoratorAbstract
 	}
 	
 	/**
-	 * @param VXML\Event $event
+	 * @param Event $event
 	 */
-	protected function evaluate($event)
+	protected function evaluate(Event $event)
 	{
 		$results = array();
 		$response = $event->getResponse();
@@ -29,7 +28,7 @@ final class Iterator extends DecoratorAbstract
 		if(! is_array($values))
 			throw new \InvalidArgumentException('target for rule Iterator, may only be an array');
 		
-		$child_response = new VXML\Response();
+		$child_response = new Response();
 		foreach($values as $key => $value)
 		{
 			$this->rule->setRelativeTarget($key);

@@ -1,23 +1,21 @@
 <?php
 namespace VXML\Rule;
 
-use VXML;
-
-require_once 'DecoratorAbstract.php';
+use VXML\Event;
 
 /**
  * Silences the decorated rule, changing any failures to debug. You will
  * still be able to hook into the failure via listeners.
  * 
  * Example:
- * new Rule\Silent(new Rule\Equal(target, options))
+ * new Silent(new Equal(target, options))
  */
 final class Silent extends DecoratorAbstract
 {
 	/**
-	 * @param VXML\Event $event
+	 * @param Event $event
 	 */
-	protected function evaluate($event)
+	protected function evaluate(Event $event)
 	{
 		$response = $event->getResponse();
 		if(! $this->rule->execute($event->getContext(), $response))

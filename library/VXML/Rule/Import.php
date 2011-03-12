@@ -1,22 +1,21 @@
 <?php
 namespace VXML\Rule;
 
-use VXML;
+use VXML\Rule;
+use VXML\Event;
 
-require_once 'CompositeAbstract.php';
-
-final class Import extends CompositeAbstract
+class Import extends CompositeAbstract
 {
 // STATIC
 	/**
-	 * @var VXML\Rule\RuleAbstract
+	 * @var Rule
 	 */
 	static private $rule;
 	
 	static private $stack = array();
 	
 	/**
-	 * @return VXML\Rule\RuleAbstract
+	 * @return Rule
 	 */
 	static public function getInstance()
 	{
@@ -45,9 +44,9 @@ final class Import extends CompositeAbstract
 	}
 	
 	/**
-	 * @param VXML\Event $event
+	 * @param Event $event
 	 */
-	protected function evaluate($event)
+	protected function evaluate(Event $event)
 	{
 		$path = $this->getOption('path');
 		

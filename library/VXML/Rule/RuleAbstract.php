@@ -1,11 +1,12 @@
 <?php
 namespace VXML\Rule;
 
-use VXML;
+use VXML\Event;
+use VXML\Response;
+use VXML\Context;
+use VXML\Rule;
 
-require_once 'VXML/Event.php';
-
-abstract class RuleAbstract
+abstract class RuleAbstract implements Rule
 {
 	/**
 	 * Relative target of the rule, to be applied to the context
@@ -55,8 +56,8 @@ abstract class RuleAbstract
 	/**
 	 * To be implemented by a composite rule
 	 * 
-	 * @param VXML\Rule\RuleAbstract $rule
-	 * @return VXML\Rule\RuleAbstract
+	 * @param Rule $rule
+	 * @return Rule
 	 */
 	public function add($rule)
 	{
@@ -67,7 +68,7 @@ abstract class RuleAbstract
 	 * Add a rule or callback to an event
 	 * 
 	 * @param string $event
-	 * @param string|VXML\Rule\RuleAbstract $rule
+	 * @param string|Rule $rule
 	 * @return $rule
 	 */
 	public function addListener($event, $rule)
@@ -78,17 +79,17 @@ abstract class RuleAbstract
 	/**
 	 * Evaluate rule and invoke events and setup context
 	 * 
-	 * @param VXML\Context $context
-	 * @param VXML\Response $response
+	 * @param Context $context
+	 * @param Response $response
 	 * @return boolean
 	 */
-	public function execute($context, $response)
+	public function execute(Context $context, Response $response)
 	{
 		$context->save();
 		$context->setRelativeTarget($this->getRelativeTarget());
 		$this->resolved_target = $context->getResolvedTarget();
 		
-		$event = new VXML\Event($this, $context, $response);
+		$event = new Event($this, $context, $response);
 		$this->invoke('before', $event);
 		
 		$ret = $this->evaluate($event);
@@ -155,7 +156,7 @@ abstract class RuleAbstract
 	 * Invoke an collection of rules based on event type
 	 * 
 	 * @param string $type
-	 * @param VXML\Event $event
+	 * @param Event $event
 	 * @return array
 	 */
 	final public function invoke($type, $event)
@@ -165,7 +166,7 @@ abstract class RuleAbstract
 		{
 			foreach($this->event_listeners[$type] as $event_handler)
 			{
-				if($event_handler instanceof RuleAbstract)
+				if($event_handler instanceof Rule)
 				{
 					$results[] = $event_handler->execute($event->getContext(), $event->getResponse());
 				}
@@ -190,11 +191,11 @@ abstract class RuleAbstract
 // PROTECTED
 	/**
 	 * Evaluate the rule and add any messages to the response object
-	 * 
-	 * @param VXML\Event $event
+	 *
+     * @param Event $event
 	 * @return boolean
 	 */
-	abstract protected function evaluate($event);
+	abstract protected function evaluate(Event $event);
 	
 	/**
 	 * Called to initialize any resources needed for the rule

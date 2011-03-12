@@ -1,16 +1,15 @@
 <?php
 namespace VXML\Rule;
 
-use VXML;
-
-require_once 'RuleAbstract.php';
-require_once 'VXML/Context.php';
+use VXML\Event;
+use VXML\Response;
+use VXML\Context;
 
 abstract class CompositeAbstract extends RuleAbstract
 {
 	const NUM_RULES = 'VXML_Rule_CompositeAbstract::NUM_RULES';
 	
-	public function __construct($target = VXML\Context::RELATIVE, $options = array())
+	public function __construct($target = Context::RELATIVE, $options = array())
 	{
 		$this->addOption('min', self::NUM_RULES);
 		$this->addOption('max', self::NUM_RULES);
@@ -19,8 +18,8 @@ abstract class CompositeAbstract extends RuleAbstract
 	}
 	
 	/**
-	 * @param VXML\Rule\RuleAbstract $rule
-	 * @return VXML\Rule\RuleAbstract
+	 * @param string|Rule $rule
+	 * @return Rule
 	 */
 	public function add($rule)
 	{
@@ -28,14 +27,13 @@ abstract class CompositeAbstract extends RuleAbstract
 	}
 	
 	/**
-	 * @param VXML\Event $event
+	 * @param Event $event
 	 */
-	protected function evaluate($event)
+	protected function evaluate(Event $event)
 	{
 		$num_components = count($this->getListeners('components'));
 		
-		$child_response = new VXML\Response();
-		$child_event = new VXML\Event($event->getRule(), $event->getContext(), new VXML\Response());
+		$child_event = new Event($event->getRule(), $event->getContext(), new Response());
 		$num_valid = count(array_filter($this->invoke('components', $child_event)));
 		
 		$min_limit = ($this->getOption('min') == self::NUM_RULES ? $num_components : $this->getOption('min'));

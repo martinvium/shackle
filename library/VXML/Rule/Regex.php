@@ -1,9 +1,7 @@
 <?php
 namespace VXML\Rule;
 
-use VXML;
-
-require_once 'RuleAbstract.php';
+use VXML\Event;
 
 final class Regex extends RuleAbstract
 {
@@ -15,7 +13,7 @@ final class Regex extends RuleAbstract
 	/**
 	 * @param VXML\Event $event
 	 */
-	protected function evaluate($event)
+	protected function evaluate(Event $event)
 	{
 		if(preg_match($this->getOption('pattern'), $event->getContext()->getPassedValue()))
 		{

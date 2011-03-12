@@ -1,9 +1,7 @@
 <?php
 namespace VXML\Rule;
 
-use VXML;
-
-require_once 'RuleAbstract.php';
+use VXML\Event;
 
 /**
  * @todo rename to Range, shorter and number seems somewhat redundant?
@@ -17,9 +15,9 @@ final class NumberRange extends RuleAbstract
 	}
 	
 	/**
-	 * @param VXML\Event $event
+	 * @param Event $event
 	 */
-	protected function evaluate($event)
+	protected function evaluate(Event $event)
 	{
 		$value = $event->getContext()->getPassedValue();
 		

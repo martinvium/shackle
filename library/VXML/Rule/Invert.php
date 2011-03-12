@@ -1,19 +1,18 @@
 <?php
 namespace VXML\Rule;
 
-use VXML;
-
-require_once 'DecoratorAbstract.php';
+use VXML\Response;
+use VXML\Event;
 
 final class Invert extends DecoratorAbstract
 {
 	/**
 	 * @todo Re-adding rules like this will screw up targets
-	 * @param VXML\Event $event
+	 * @param Event $event
 	 */
-	protected function evaluate($event)
+	protected function evaluate(Event $event)
 	{
-		$mock_response = new VXML\Response();
+		$mock_response = new Response();
 		if(! $this->rule->execute($event->getContext(), $mock_response))
 		{
 			foreach($mock_response->getFailureMessages() as $failure)

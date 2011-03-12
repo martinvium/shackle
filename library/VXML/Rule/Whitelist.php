@@ -1,9 +1,7 @@
 <?php
 namespace VXML\Rule;
 
-use VXML;
-
-require_once 'RuleAbstract.php';
+use VXML\Event;
 
 final class Whitelist extends RuleAbstract
 {
@@ -14,9 +12,9 @@ final class Whitelist extends RuleAbstract
 	}
 	
 	/**
-	 * @param VXML\Event $event
+	 * @param Event $event
 	 */
-	protected function evaluate($event)
+	protected function evaluate(Event $event)
 	{
 		if(in_array($event->getContext()->getPassedValue(), $this->getOption('options'), $this->getOption('strict')))
 		{
