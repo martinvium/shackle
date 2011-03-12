@@ -1,13 +1,12 @@
 <?php
 use VXML\Rule;
 
-require_once 'TestCase.php';
-
 class VXML_Rule_ImportTest extends VXML_Rule_TestCase 
 {
 	public function testImportPHPFile()
 	{
-		$rule = new Rule\Import('.', array('path' => 'res/import.php'));
+        $path = dirname(__DIR__) . '/res/import.php';
+		$rule = new Rule\Import('.', array('path' => $path));
 		$this->assertTrue($rule->execute($this->context, $this->response));
 	}
 	

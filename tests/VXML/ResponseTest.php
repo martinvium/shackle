@@ -1,8 +1,6 @@
 <?php
 use VXML\Rule;
 
-require_once 'PHPUnit\Framework\TestCase.php';
-
 /**
  * Response test case.
  */

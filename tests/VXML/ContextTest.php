@@ -1,9 +1,4 @@
 <?php
-require_once 'PHPUnit\Framework\TestCase.php';
-
-/**
- * Context test case.
- */
 class VXML_ContextTest extends PHPUnit_Framework_TestCase 
 {
 	/**

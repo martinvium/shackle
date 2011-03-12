@@ -2,11 +2,6 @@
 use VXML\Rule;
 
 /**
- * @todo this wont include relative, so i added this "hack"
- */
-require_once 'Rule/TestCase.php';
-
-/**
  * @todo add support for single string target, maybe just check on 1 vs 3 targets?
  * 	 we probably should add an option for it, so we don't pass 1 target by accident.
  */

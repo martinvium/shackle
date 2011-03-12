@@ -1,8 +1,6 @@
 <?php
 use VXML\Rule;
 
-require_once 'TestCase.php';
-
 class VXML_Rule_NumberRangeTest extends VXML_Rule_TestCase 
 {
 	public function testInRange()

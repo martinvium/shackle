@@ -1,8 +1,5 @@
 <?php
-use VXML;
 use VXML\Rule;
-
-require_once 'TestCase.php';
 
 class VXML_Rule_SetTest extends VXML_Rule_TestCase 
 {

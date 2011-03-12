@@ -1,8 +1,6 @@
 <?php
 use VXML\Rule;
 
-require_once 'TestCase.php';
-
 class VXML_Rule_ValidTest extends VXML_Rule_TestCase 
 {
 	public function testValid()
