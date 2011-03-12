@@ -1,10 +1,7 @@
 <?php
-use VXML\Rule;
+namespace VXML;
 
-/**
- * Event test case.
- */
-class VXML_EventTest extends PHPUnit_Framework_TestCase {
+class EventTest extends \PHPUnit_Framework_TestCase {
 	
 	/**
 	 * @var VXML\Event
@@ -30,11 +27,11 @@ class VXML_EventTest extends PHPUnit_Framework_TestCase {
 	{
 		parent::setUp ();
 		
-		$this->rule = new VXML\Rule\Equal('field_a', array('equal' => 'test'));
-		$this->context = new VXML\Context(array('field_a' => 'test'));
-		$this->response = new VXML\Response();
+		$this->rule = new Rule\Equal('field_a', array('equal' => 'test'));
+		$this->context = new Context(array('field_a' => 'test'));
+		$this->response = new Response();
 		
-		$this->event = new VXML\Event($this->rule, $this->context, $this->response);
+		$this->event = new Event($this->rule, $this->context, $this->response);
 	}
 	
 	protected function tearDown() 

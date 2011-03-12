@@ -1,11 +1,11 @@
 <?php
-use VXML\Rule;
+namespace VXML\Rule;
 
-class VXML_Rule_FailureTest extends VXML_Rule_TestCase 
+class FailureTest extends TestCase 
 {
 	public function testFailure()
 	{
-		$rule = new Rule\Failure();
+		$rule = new Failure();
 		$this->assertFalse($rule->execute($this->context, $this->response));
 	}
 }

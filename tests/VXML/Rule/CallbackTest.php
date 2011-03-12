@@ -1,10 +1,12 @@
 <?php
-use VXML\Rule;
+namespace VXML\Rule;
 
-class VXML_Rule_CallbackTest extends VXML_Rule_TestCase 
+use VXML\Event;
+
+class CallbackTest extends TestCase
 {
 	/**
-	 * @param VXML\Event $event
+	 * @param Event $event
 	 */
 	public function callback($event)
 	{
@@ -13,27 +15,27 @@ class VXML_Rule_CallbackTest extends VXML_Rule_TestCase
 	
 	public function testCallbackSuccess()
 	{
-		$rule = new Rule\Callback('firstname', array('callback' => array($this, 'callback')));
+		$rule = new Callback('firstname', array('callback' => array($this, 'callback')));
 		$this->assertTrue($rule->execute($this->context, $this->response));
 	}
 	
 	public function testCallbackFailure()
 	{
-		$rule = new Rule\Callback('lastname', array('callback' => array($this, 'callback')));
+		$rule = new Callback('lastname', array('callback' => array($this, 'callback')));
 		$this->assertFalse($rule->execute($this->context, $this->response));
 	}
 	
 	public function testPassingLambdaAsCallback()
 	{
-		$rule = new Rule\Callback('lastname', array('callback' => function() { return false; }));
+		$rule = new Callback('lastname', array('callback' => function() { return false; }));
 		$this->assertFalse($rule->execute($this->context, $this->response));
 	}
 	
 	public function testPassingRuleAsCallback()
 	{
 		$this->markTestSkipped();
-		$cbRule = new Rule\Equal('salary', array('equal' => 25000));
-		$rule = new Rule\Callback('salary', array('callback' => $cbRule));
+		$cbRule = new Equal('salary', array('equal' => 25000));
+		$rule = new Callback('salary', array('callback' => $cbRule));
 		$this->assertTrue($rule->execute($this->context, $this->response));
 	}
 	
@@ -42,7 +44,7 @@ class VXML_Rule_CallbackTest extends VXML_Rule_TestCase
 	 */
 	public function testPassingInvalidCallback()
 	{
-		$rule = new Rule\Callback('salary', array('callback' => 123));
+		$rule = new Callback('salary', array('callback' => 123));
 		$rule->execute($this->context, $this->response);
 	}
 	
@@ -51,7 +53,7 @@ class VXML_Rule_CallbackTest extends VXML_Rule_TestCase
 	 */
 	public function testMissingCallbackOption()
 	{
-		$rule = new Rule\StringLength('firstname', array());
+		$rule = new StringLength('firstname', array());
 		$rule->execute($this->context, $this->response);
 	}
 }

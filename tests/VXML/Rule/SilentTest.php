@@ -1,11 +1,11 @@
 <?php
-use VXML\Rule;
+namespace VXML\Rule;
 
-class VXML_Rule_SilentTest extends VXML_Rule_TestCase 
+class SilentTest extends TestCase 
 {
 	public function testValidValue()
 	{
-		$rule = new Rule\Silent(new Rule\Equal('firstname', array('equal' => 'Jørgen')));
+		$rule = new Silent(new Equal('firstname', array('equal' => 'Jørgen')));
 		$this->assertTrue($rule->execute($this->context, $this->response));
 		$this->assertEquals(2, count($this->response->getSuccessMessages()));
 		$this->assertEquals(0, count($this->response->getDebugMessages()));
@@ -13,7 +13,7 @@ class VXML_Rule_SilentTest extends VXML_Rule_TestCase
 	
 	public function testInvalidValue()
 	{
-		$rule = new Rule\Silent(new Rule\Equal('firstname', array('equal' => 'test')));
+		$rule = new Silent(new Equal('firstname', array('equal' => 'test')));
 		$this->assertTrue($rule->execute($this->context, $this->response));
 		$this->assertEquals(0, count($this->response->getFailureMessages()));
 		$this->assertEquals(1, count($this->response->getDebugMessages()));

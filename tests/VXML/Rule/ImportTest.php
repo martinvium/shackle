@@ -1,12 +1,11 @@
 <?php
-use VXML\Rule;
+namespace VXML\Rule;
 
-class VXML_Rule_ImportTest extends VXML_Rule_TestCase 
+class ImportTest extends TestCase 
 {
 	public function testImportPHPFile()
 	{
-        $path = dirname(__DIR__) . '/res/import.php';
-		$rule = new Rule\Import('.', array('path' => $path));
+		$rule = new Import('.', array('path' => __DIR__ . '/_files/import.php'));
 		$this->assertTrue($rule->execute($this->context, $this->response));
 	}
 	
@@ -15,7 +14,7 @@ class VXML_Rule_ImportTest extends VXML_Rule_TestCase
 	 */
 	public function testMissingPathOption()
 	{
-		$rule = new Rule\Import('.', array());
+		$rule = new Import('.', array());
 		$rule->execute($this->context, $this->response);
 	}
 	

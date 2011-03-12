@@ -1,15 +1,18 @@
 <?php
-require_once 'PHPUnit\Framework\TestCase.php';
+namespace VXML\Rule;
 
-abstract class VXML_Rule_TestCase extends PHPUnit_Framework_TestCase
+use VXML\Context;
+use VXML\Response;
+
+abstract class TestCase extends \PHPUnit_Framework_TestCase
 {
 	/**
-	 * @var VXML\Context
+	 * @var Context
 	 */
 	protected $context;
 	
 	/**
-	 * @var VXML\Response
+	 * @var Response
 	 */
 	protected $response;
 	
@@ -37,8 +40,8 @@ abstract class VXML_Rule_TestCase extends PHPUnit_Framework_TestCase
 				'mock-d@example.se')
 		);
 		
-		$this->context = new VXML\Context($this->mockData);
-		$this->response = new VXML\Response();
+		$this->context = new Context($this->mockData);
+		$this->response = new Response();
 	}
 	
 	public function tearDown()

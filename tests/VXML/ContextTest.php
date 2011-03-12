@@ -1,8 +1,10 @@
 <?php
-class VXML_ContextTest extends PHPUnit_Framework_TestCase 
+namespace VXML;
+
+class ContextTest extends \PHPUnit_Framework_TestCase
 {
 	/**
-	 * @var VXML\Context
+	 * @var Context
 	 */
 	private $context;
 	
@@ -20,7 +22,7 @@ class VXML_ContextTest extends PHPUnit_Framework_TestCase
 			'level_one_c' => 'value_d'
 		);
 		
-		$this->context = new VXML\Context($this->mockData);
+		$this->context = new Context($this->mockData);
 	}
 	
 	protected function tearDown() 
@@ -82,7 +84,7 @@ class VXML_ContextTest extends PHPUnit_Framework_TestCase
 	public function testGetPassedValues() 
 	{
 		$this->context->setRelativeTarget('level_one_a');
-		$this->assertEquals(array('level_one_a' => $this->mockData['level_one_a']), $this->context->getPassedValues(VXML\Context::ALL_TARGETS));
+		$this->assertEquals(array('level_one_a' => $this->mockData['level_one_a']), $this->context->getPassedValues(Context::ALL_TARGETS));
 	}
 	
 	public function testGetPassedValuesCustomProto()

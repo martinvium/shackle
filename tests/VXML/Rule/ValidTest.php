@@ -1,11 +1,11 @@
 <?php
-use VXML\Rule;
+namespace VXML\Rule;
 
-class VXML_Rule_ValidTest extends VXML_Rule_TestCase 
+class ValidTest extends TestCase 
 {
 	public function testValid()
 	{
-		$rule = new Rule\Valid();
+		$rule = new Valid();
 		$this->assertTrue($rule->execute($this->context, $this->response));
 	}
 }

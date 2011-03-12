@@ -1,17 +1,17 @@
 <?php
-use VXML\Rule;
+namespace VXML\Rule;
 
-class VXML_Rule_RegexTest extends VXML_Rule_TestCase 
+class RegexTest extends TestCase 
 {
 	public function testEqual()
 	{
-		$rule = new Rule\Regex('firstname', array('pattern' => '/\p{L}+/x'));
+		$rule = new Regex('firstname', array('pattern' => '/\p{L}+/x'));
 		$this->assertTrue($rule->execute($this->context, $this->response));
 	}
 	
 	public function testNotEqual()
 	{
-		$rule = new Rule\Regex('firstname', array('pattern' => '/\[0-9]+/x'));
+		$rule = new Regex('firstname', array('pattern' => '/\[0-9]+/x'));
 		$this->assertFalse($rule->execute($this->context, $this->response));
 	}
 	
@@ -20,7 +20,7 @@ class VXML_Rule_RegexTest extends VXML_Rule_TestCase
 	 */
 	public function testMissingPatternOptionError()
 	{
-		$rule = new Rule\Regex('firstname');
+		$rule = new Regex('firstname');
 		$rule->execute($this->context, $this->response);
 	}
 }

@@ -1,18 +1,15 @@
 <?php
-use VXML\Rule;
+namespace VXML;
 
-/**
- * Response test case.
- */
-class VXML_ResponseTest extends PHPUnit_Framework_TestCase 
+class ResponseTest extends \PHPUnit_Framework_TestCase
 {
 	/**
-	 * @var VXML\Response
+	 * @var Response
 	 */
 	private $response;
 	
 	/**
-	 * @var VXML\Rule\Equal
+	 * @var Rule\Equal
 	 */
 	private $mockRule;
 	
@@ -20,8 +17,8 @@ class VXML_ResponseTest extends PHPUnit_Framework_TestCase
 	{
 		parent::setUp ();
 		
-		$this->response = new VXML\Response();
-		$this->mockRule = new VXML\Rule\Equal('mock', array('message' => 'message'));
+		$this->response = new Response();
+		$this->mockRule = new Rule\Equal('mock', array('message' => 'message'));
 	}
 	
 	protected function tearDown() 
@@ -44,7 +41,7 @@ class VXML_ResponseTest extends PHPUnit_Framework_TestCase
 		$this->response->addFailure($this->mockRule);
 		$this->response->addDebug($this->mockRule, 'debug');
 		
-		$mergedResponse = new VXML\Response();
+		$mergedResponse = new Response();
 		$mergedResponse->merge($this->response);
 		
 		$this->assertEquals($this->response->getAllMessages(), $mergedResponse->getAllMessages());
@@ -95,7 +92,7 @@ class VXML_ResponseTest extends PHPUnit_Framework_TestCase
 	
 	public function testRemoveByRule()
 	{
-		$mockRuleB = new VXML\Rule\Equal('mock2');
+		$mockRuleB = new Rule\Equal('mock2');
 		$this->response->addSuccess($this->mockRule);
 		$this->response->addSuccess($mockRuleB);
 		$this->response->removeByRule($this->mockRule);
@@ -110,7 +107,7 @@ class VXML_ResponseTest extends PHPUnit_Framework_TestCase
 	{
 		$this->response->addSuccess($this->mockRule, 'debug');
 		$message = current($this->response->getSuccessMessages());
-		$this->assertEquals(VXML\Response::MSG_SUCCESS, $message['type']);
+		$this->assertEquals(Response::MSG_SUCCESS, $message['type']);
 		$this->assertEquals($this->mockRule, $message['rule']);
 		$this->assertEquals(array(), $message['target'], 'target should be empty, because rule has not been executed');
 		$this->assertEquals(null, $message['message']);
@@ -121,7 +118,7 @@ class VXML_ResponseTest extends PHPUnit_Framework_TestCase
 	{
 		$this->response->addFailure($this->mockRule, 'debug');
 		$message = current($this->response->getFailureMessages());
-		$this->assertEquals(VXML\Response::MSG_FAILURE, $message['type']);
+		$this->assertEquals(Response::MSG_FAILURE, $message['type']);
 		$this->assertEquals($this->mockRule, $message['rule']);
 		$this->assertEquals(array(), $message['target'], 'target should be empty, because rule has not been executed');
 		$this->assertEquals('message', $message['message']);
@@ -132,7 +129,7 @@ class VXML_ResponseTest extends PHPUnit_Framework_TestCase
 	{
 		$this->response->addDebug($this->mockRule, 'debug');
 		$message = current($this->response->getDebugMessages());
-		$this->assertEquals(VXML\Response::MSG_DEBUG, $message['type']);
+		$this->assertEquals(Response::MSG_DEBUG, $message['type']);
 		$this->assertEquals($this->mockRule, $message['rule']);
 		$this->assertEquals(array(), $message['target'], 'target should be empty, because rule has not been executed');
 		$this->assertEquals(null, $message['message']);

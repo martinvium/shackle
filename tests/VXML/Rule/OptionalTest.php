@@ -1,23 +1,23 @@
 <?php
-use VXML\Rule;
+namespace VXML\Rule;
 
-class VXML_Rule_OptionalTest extends VXML_Rule_TestCase 
+class OptionalTest extends TestCase 
 {
 	public function testEmptyValue()
 	{
-		$rule = new Rule\Optional(new Rule\Equal('empty', array('equal' => 'test')));
+		$rule = new Optional(new Equal('empty', array('equal' => 'test')));
 		$this->assertTrue($rule->execute($this->context, $this->response));
 	}
 	
 	public function testNonEmptyInvalidValue()
 	{
-		$rule = new Rule\Optional(new Rule\Equal('firstname', array('equal' => 'test')));
+		$rule = new Optional(new Equal('firstname', array('equal' => 'test')));
 		$this->assertFalse($rule->execute($this->context, $this->response));
 	}
 	
 	public function testNonEmptyValidValue()
 	{
-		$rule = new Rule\Optional(new Rule\Equal('firstname', array('equal' => 'Jørgen')));
+		$rule = new Optional(new Equal('firstname', array('equal' => 'Jørgen')));
 		$this->assertTrue($rule->execute($this->context, $this->response));
 	}
 }

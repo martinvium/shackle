@@ -1,17 +1,17 @@
 <?php
-use VXML\Rule;
+namespace VXML\Rule;
 
-class VXML_Rule_EqualTest extends VXML_Rule_TestCase 
+class EqualTest extends TestCase 
 {
 	public function testEqual()
 	{
-		$rule = new Rule\Equal('firstname', array('equal' => 'Jørgen'));
+		$rule = new Equal('firstname', array('equal' => 'Jørgen'));
 		$this->assertTrue($rule->execute($this->context, $this->response));
 	}
 	
 	public function testNotEqual()
 	{
-		$rule = new Rule\Equal('firstname', array('equal' => 'Jørgenx'));
+		$rule = new Equal('firstname', array('equal' => 'Jørgenx'));
 		$this->assertFalse($rule->execute($this->context, $this->response));
 	}
 	
@@ -20,7 +20,7 @@ class VXML_Rule_EqualTest extends VXML_Rule_TestCase
 	 */
 	public function testMissingEqualOptionError()
 	{
-		$rule = new Rule\Equal('firstname');
+		$rule = new Equal('firstname');
 		$rule->execute($this->context, $this->response);
 	}
 }
