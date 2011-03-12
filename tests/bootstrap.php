@@ -1,5 +1,5 @@
 <?php
-$vxml_library = __DIR__ . '/../' . 'library';
+$vxml_library = dirname(__DIR__) . '/library';
 $vxml_tests = __DIR__;
 set_include_path(get_include_path() . PATH_SEPARATOR . $vxml_library . PATH_SEPARATOR . $vxml_library);
 
