@@ -5,7 +5,7 @@
          convertNoticesToExceptions="true"
          convertWarningsToExceptions="true"
          stopOnFailure="true">
-    <testsuite name="VXML">
+    <testsuite name="vxml">
         <directory>./</directory>
     </testsuite>
 
@@ -23,8 +23,8 @@
 
     <logging>
         <log type="coverage-html"
-             target="build/coverage"
-             title="Name of Project"
+             target="../build/coverage"
+             title="vxml"
              charset="UTF-8"
              yui="true" 
              highlight="true"
