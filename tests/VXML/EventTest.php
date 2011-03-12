@@ -42,16 +42,16 @@ class EventTest extends \PHPUnit_Framework_TestCase {
 	
 	public function testGetRule()
 	{
-		$this->assertType('VXML\Rule\RuleAbstract', $this->event->getRule());
+		$this->assertInstanceOf('VXML\Rule\RuleAbstract', $this->event->getRule());
 	}
 	
 	public function testGetContext()
 	{
-		$this->assertType('VXML\Context', $this->event->getContext());
+		$this->assertInstanceOf('VXML\Context', $this->event->getContext());
 	}
 	
 	public function testGetResponse()
 	{
-		$this->assertType('VXML\Response', $this->event->getResponse());
+		$this->assertInstanceOf('VXML\Response', $this->event->getResponse());
 	}
 }
