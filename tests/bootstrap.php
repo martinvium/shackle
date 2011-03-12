@@ -6,4 +6,4 @@ set_include_path(get_include_path() . PATH_SEPARATOR . $vxml_library . PATH_SEPA
 require_once 'VXML/Loader.php';
 VXML\Loader::registerAutoload();
 
-require_once 'PHPUnit\Framework\TestCase.php';
+require_once 'PHPUnit/Framework/TestCase.php';
