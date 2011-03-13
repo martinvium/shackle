@@ -161,22 +161,26 @@ abstract class RuleAbstract implements Rule
         $results = array();
         if (isset($this->_eventListeners[$type])) {
             foreach ($this->_eventListeners[$type] as $eventHandler) {
-                if ($eventHandler instanceof Rule) {
-                    $results[] = $eventHandler->execute($event->getContext(), $event->getResponse());
-                } else if ($eventHandler instanceof Closure) {
-                    $results[] = (bool)$eventHandler($event);
-                } else if (is_callable($eventHandler)) {
-                    $results[] = (bool)call_user_func($eventHandler, $event);
-                } else {
-                    throw new \InvalidArgumentException('invalid event type: ' . var_export($eventHandler, true));
-                }
+                $results[] = $this->handleEvent($eventHandler, $event);
             }
         }
         
         return $results;
     }
     
-// PROTECTED
+    protected function handleEvent($eventHandler, $event)
+    {
+        if ($eventHandler instanceof Rule) {
+            return $eventHandler->execute($event->getContext(), $event->getResponse());
+        } else if ($eventHandler instanceof Closure) {
+            return (bool)$eventHandler($event);
+        } else if (is_callable($eventHandler)) {
+            return (bool)call_user_func($eventHandler, $event);
+        } else {
+            throw new \InvalidArgumentException('invalid event type: ' . var_export($eventHandler, true));
+        }
+    }
+
     /**
      * Evaluate the rule and add any messages to the response object
      *
