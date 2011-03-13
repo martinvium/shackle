@@ -19,14 +19,14 @@ final class Response
      * 
      * @var array
      */
-    private $messages = array();
+    private $_messages = array();
     
     /**
      * @param VXML\Response $response
      */
     public function merge($response)
     {
-        $this->messages = array_merge($this->messages, $response->getAllMessages());
+        $this->_messages = array_merge($this->_messages, $response->getAllMessages());
     }
     
     /**
@@ -36,9 +36,9 @@ final class Response
      */
     public function convertFailuresToDebug()
     {
-        foreach ($this->messages as $key => $message) {
+        foreach ($this->_messages as $key => $message) {
             if ($message['type'] == self::MSG_FAILURE) {
-                $this->messages[$key]['type'] = self::MSG_DEBUG;
+                $this->_messages[$key]['type'] = self::MSG_DEBUG;
             }
         }
     }
@@ -83,9 +83,9 @@ final class Response
      */
     public function removeByRule($rule)
     {
-        foreach ($this->messages as $key => $message) {
+        foreach ($this->_messages as $key => $message) {
             if ($message['rule'] === $rule) {
-                unset($this->messages[$key]);
+                unset($this->_messages[$key]);
                 return $message;
             }
         }
@@ -100,7 +100,7 @@ final class Response
      */
     public function getAllMessages()
     {
-        return $this->messages;
+        return $this->_messages;
     }
     
     /**
@@ -142,7 +142,7 @@ final class Response
     private function getMessagesByType($type)
     {
         $messages = array();
-        foreach ($this->messages as $msg) {
+        foreach ($this->_messages as $msg) {
             if ($msg['type'] == $type) {
                 $messages[] = $msg;
             }
@@ -160,7 +160,7 @@ final class Response
      */
     private function addMessage($type, $rule, $msg, $debugMsg)
     {
-        $this->messages[] = array(
+        $this->_messages[] = array(
             'type'    => $type,
             'rule'    => $rule,
             'target'  => $rule->getResolvedTarget(),
