@@ -51,5 +51,5 @@ $set->add(new Rule\Invert(new Rule\Whitelist('whitelist', array('options' => arr
  */
 function cb_rule_success($event)
 {
-	echo 'cb_rule_success';
+    echo 'cb_rule_success';
 }

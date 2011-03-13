@@ -14,25 +14,25 @@ use VXML\Event;
  */
 final class Optional extends DecoratorAbstract
 {
-	/**
-	 * @param Event $event
-	 */
-	protected function evaluate(Event $event)
-	{
-		$context = $event->getContext();
-		$context->save();
-		$context->setRelativeTarget($this->rule->getRelativeTarget());
-		$values = $context->getPassedValues(Context::ALL_TARGETS);
-		$context->restore();
-		
-		foreach($values as $value)
-		{
-			if(! empty($value))
-				return $this->rule->execute($context, $event->getResponse());
-		}
-		
-		$event->getResponse()->addDebug($this, 'value was optional and empty');
-		$this->rule->invoke('optional', $event);
-		return true;
-	}
+    /**
+     * @param Event $event
+     */
+    protected function evaluate(Event $event)
+    {
+        $context = $event->getContext();
+        $context->save();
+        $context->setRelativeTarget($this->rule->getRelativeTarget());
+        $values = $context->getPassedValues(Context::ALL_TARGETS);
+        $context->restore();
+        
+        foreach($values as $value)
+        {
+            if(! empty($value))
+                return $this->rule->execute($context, $event->getResponse());
+        }
+        
+        $event->getResponse()->addDebug($this, 'value was optional and empty');
+        $this->rule->invoke('optional', $event);
+        return true;
+    }
 }

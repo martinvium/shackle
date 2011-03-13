@@ -6,16 +6,16 @@ use VXML\Context;
 
 final class Valid extends RuleAbstract
 {
-	public function __construct()
-	{
-		parent::__construct(Context::RELATIVE);
-	}
-	
-	/**
-	 * @param Event $event
-	 */
-	protected function evaluate(Event $event)
-	{
-		return true;
-	}
+    public function __construct()
+    {
+        parent::__construct(Context::RELATIVE);
+    }
+    
+    /**
+     * @param Event $event
+     */
+    protected function evaluate(Event $event)
+    {
+        return true;
+    }
 }
