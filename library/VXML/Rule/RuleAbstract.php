@@ -93,7 +93,7 @@ abstract class RuleAbstract implements Rule
         $this->invoke('before', $event);
         
         $ret = $this->evaluate($event);
-        if($ret) {
+        if ($ret) {
             $response->addSuccess($this);
             $this->invoke('valid', $event);
         } else {
@@ -159,15 +159,15 @@ abstract class RuleAbstract implements Rule
     final public function invoke($type, $event)
     {
         $results = array();
-        if(isset($this->_eventListeners[$type])) {
-            foreach($this->_eventListeners[$type] as $eventHandler) {
-                if($eventHandler instanceof Rule) {
+        if (isset($this->_eventListeners[$type])) {
+            foreach ($this->_eventListeners[$type] as $eventHandler) {
+                if ($eventHandler instanceof Rule) {
                     $results[] = $eventHandler->execute($event->getContext(), $event->getResponse());
                 } 
-                else if($eventHandler instanceof Closure) {
+                else if ($eventHandler instanceof Closure) {
                     $results[] = (bool)$eventHandler($event);
                 } 
-                else if(is_callable($eventHandler)) {
+                else if (is_callable($eventHandler)) {
                     $results[] = (bool)call_user_func($eventHandler, $event);
                 }
                 else {
@@ -205,8 +205,9 @@ abstract class RuleAbstract implements Rule
      */
     final protected function getOption($name)
     {
-        if($this->_options[$name] === null)
+        if($this->_options[$name] === null) {
             throw new \InvalidArgumentException('option "' . $name . '" is required, but was left undefined in rule: ' . get_class($this) . ' on target: ' . $this->getRelativeTarget());
+        }
         
         return $this->_options[$name];
     }
@@ -216,12 +217,12 @@ abstract class RuleAbstract implements Rule
      * to be filled out in userland.
      * 
      * @param string $name
-     * @param mixed $default_value
+     * @param mixed $defaultValue
      * @return void
      */
-    final protected function addOption($name, $default_value)
+    final protected function addOption($name, $defaultValue)
     {
-        $this->_options[$name] = $default_value;
+        $this->_options[$name] = $defaultValue;
     }
     
     /**
@@ -232,12 +233,14 @@ abstract class RuleAbstract implements Rule
      */
     final protected function setOptions($options)
     {
-        if(! is_array($options))
+        if (! is_array($options)) {
             throw new \InvalidArgumentException('options must be an array in rule: ' . get_class($this) . ' on target: ' . $this->getRelativeTarget());
+        }
         
-        foreach($options as $name => $value) {
-            if(! array_key_exists($name, $this->_options))
+        foreach ($options as $name => $value) {
+            if (! array_key_exists($name, $this->_options)) {
                 throw new \InvalidArgumentException('option "' . $name . '" does not exist');
+            }
             
             $this->_options[$name] = $value;
         }

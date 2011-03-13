@@ -12,15 +12,15 @@ final class Invert extends DecoratorAbstract
      */
     protected function evaluate(Event $event)
     {
-        $mock_response = new Response();
-        if(! $this->rule->execute($event->getContext(), $mock_response)) {
-            foreach($mock_response->getFailureMessages() as $failure) {
-                $mock_response->addSuccess($failure['rule'], $failure['debug']);
+        $mockResponse = new Response();
+        if (! $this->rule->execute($event->getContext(), $mockResponse)) {
+            foreach ($mockResponse->getFailureMessages() as $failure) {
+                $mockResponse->addSuccess($failure['rule'], $failure['debug']);
             }
 
             return true;
         } else {
-            foreach($mock_response->getSuccessMessages() as $success) {
+            foreach ($mockResponse->getSuccessMessages() as $success) {
                 $event->getResponse()->addFailure($success['rule'], $success['debug']);
             }
 

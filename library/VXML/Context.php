@@ -70,19 +70,20 @@ class Context
      */
     public function setRelativeTarget($targets)
     {
-        if(is_scalar($targets)) {
+        if (is_scalar($targets)) {
             $targets = array($targets);
         }
         
-        if(! is_array($targets))
+        if (! is_array($targets)) {
             throw new \InvalidArgumentException('target must be a scalar or an array');
+        }
         
         $resolvedTargets = array();
-        foreach($targets as $target) {
-            if($this->isAbsolute($target)) {
+        foreach ($targets as $target) {
+            if ($this->isAbsolute($target)) {
                 $resolvedTargets[] = self::RELATIVE . $target;
             }
-            else if(count($this->_resolvedTargets)) {
+            else if (count($this->_resolvedTargets)) {
                 foreach($this->_resolvedTargets as $o_target) {
                     $resolvedTargets[] = $o_target . self::SEPERATOR . $target;
                 }
@@ -111,8 +112,9 @@ class Context
      */
     public function getPassedValue()
     {
-        if(count($this->_resolvedTargets) > 1)
+        if (count($this->_resolvedTargets) > 1) {
             throw new \InvalidArgumentException('rule only expects 1 target, multiple were given: ' . count($this->_resolvedTargets));
+        }
         
         return $this->getValueFromTarget(current($this->_resolvedTargets));
     }
@@ -127,15 +129,15 @@ class Context
      */
     public function getPassedValues($proto)
     {
-        if($proto == self::ALL_TARGETS) {
+        if ($proto == self::ALL_TARGETS) {
             $proto = $this->_resolvedTargets;
         }
         
-        if(count($this->_resolvedTargets) != count($proto))
+        if (count($this->_resolvedTargets) != count($proto))
             throw new \InvalidArgumentException('number of targets mismatch');
         
         $values = array();
-        foreach($proto as $key => $name) {
+        foreach ($proto as $key => $name) {
             $values[$name] = $this->getValueFromTarget($this->_resolvedTargets[$key]);
         }
         
@@ -150,8 +152,9 @@ class Context
      */
     private function isAbsolute($target)
     {
-        if(! is_scalar($target))
+        if (! is_scalar($target)) {
             throw new \InvalidArgumentException('can only test scalars for absoluteness');
+        }
         
         return (substr($target, 0, 1) == self::SEPERATOR);
     }
@@ -167,8 +170,8 @@ class Context
         $data = $this->_data;
         $pieces = explode(self::SEPERATOR, $target);
         
-        foreach($pieces as $piece) {
-            switch($piece) {
+        foreach ($pieces as $piece) {
+            switch ($piece) {
                 case self::RELATIVE:
                     continue;
                 default:

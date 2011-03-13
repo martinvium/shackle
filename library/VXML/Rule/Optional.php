@@ -25,9 +25,10 @@ final class Optional extends DecoratorAbstract
         $values = $context->getPassedValues(Context::ALL_TARGETS);
         $context->restore();
         
-        foreach($values as $value) {
-            if(! empty($value))
+        foreach ($values as $value) {
+            if (! empty($value)) {
                 return $this->rule->execute($context, $event->getResponse());
+            }
         }
         
         $event->getResponse()->addDebug($this, 'value was optional and empty');

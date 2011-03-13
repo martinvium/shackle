@@ -24,15 +24,16 @@ final class NumberRange extends RuleAbstract
         $min = $this->getOption('min');
         $max = $this->getOption('max');
         
-        if(! $min && ! $max)
+        if (! $min && ! $max) {
             throw new \InvalidArgumentException('either min or max must be defined in rule: ' . get_class($this) . ' on target: ' . $this->getRelativeTarget());
+        }
         
-        if($min && $value < $min) {
+        if ($min && $value < $min) {
             $event->getResponse()->addFailure($this, 'minimum value for range reached (' . $value . ' < ' . $min . ')');
             return false;
         }
         
-        if($max && $value > $max) {
+        if ($max && $value > $max) {
             $event->getResponse()->addFailure($this, 'maximum value for range reached (' . $value . ' > ' . $max . ')');
             return false;
         }

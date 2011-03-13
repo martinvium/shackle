@@ -22,7 +22,7 @@ class Loader
      */
     static public function autoload($class)
     {
-        if(class_exists($class, false) || interface_exists($class, false)) {
+        if (class_exists($class, false) || interface_exists($class, false)) {
             return;
         }
     

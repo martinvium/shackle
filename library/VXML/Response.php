@@ -36,8 +36,8 @@ final class Response
      */
     public function convertFailuresToDebug()
     {
-        foreach($this->messages as $key => $message) {
-            if($message['type'] == self::MSG_FAILURE) {
+        foreach ($this->messages as $key => $message) {
+            if ($message['type'] == self::MSG_FAILURE) {
                 $this->messages[$key]['type'] = self::MSG_DEBUG;
             }
         }
@@ -83,8 +83,8 @@ final class Response
      */
     public function removeByRule($rule)
     {
-        foreach($this->messages as $key => $message) {
-            if($message['rule'] === $rule) {
+        foreach ($this->messages as $key => $message) {
+            if ($message['rule'] === $rule) {
                 unset($this->messages[$key]);
                 return $message;
             }
@@ -142,8 +142,8 @@ final class Response
     private function getMessagesByType($type)
     {
         $messages = array();
-        foreach($this->messages as $msg) {
-            if($msg['type'] == $type) {
+        foreach ($this->messages as $msg) {
+            if ($msg['type'] == $type) {
                 $messages[] = $msg;
             }
         }

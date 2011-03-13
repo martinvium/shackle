@@ -10,31 +10,31 @@ class Import extends CompositeAbstract
     /**
      * @var Rule
      */
-    static private $rule;
+    static private $_rule;
     
-    static private $stack = array();
+    static private $_stack = array();
     
     /**
      * @return Rule
      */
     static public function getInstance()
     {
-        return self::$rule;
+        return self::$_rule;
     }
     
     static private function set($rule)
     {
-        self::$rule = $rule;
+        self::$_rule = $rule;
     }
     
     static private function save()
     {
-        array_push(self::$stack, self::$rule);
+        array_push(self::$_stack, self::$_rule);
     }
     
     static private function restore()
     {
-        self::$rule = array_pop(self::$stack);
+        self::$_rule = array_pop(self::$_stack);
     }
     
 // PROTECTED
