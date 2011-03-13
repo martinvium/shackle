@@ -82,13 +82,11 @@ class Context
         foreach ($targets as $target) {
             if ($this->isAbsolute($target)) {
                 $resolvedTargets[] = self::RELATIVE . $target;
-            }
-            else if (count($this->_resolvedTargets)) {
-                foreach($this->_resolvedTargets as $o_target) {
-                    $resolvedTargets[] = $o_target . self::SEPERATOR . $target;
+            } else if (count($this->_resolvedTargets)) {
+                foreach($this->_resolvedTargets as $oTarget) {
+                    $resolvedTargets[] = $oTarget . self::SEPERATOR . $target;
                 }
-            }
-            else {
+            } else {
                 $resolvedTargets[] = $target;
             }
         }
@@ -113,7 +111,9 @@ class Context
     public function getPassedValue()
     {
         if (count($this->_resolvedTargets) > 1) {
-            throw new \InvalidArgumentException('rule only expects 1 target, multiple were given: ' . count($this->_resolvedTargets));
+            throw new \InvalidArgumentException(
+                'rule only expects 1 target, multiple were given: ' . count($this->_resolvedTargets)
+            );
         }
         
         return $this->getValueFromTarget(current($this->_resolvedTargets));

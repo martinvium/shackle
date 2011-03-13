@@ -18,8 +18,10 @@ class Equal extends RuleAbstract
         if ($event->getContext()->getPassedValue() == $this->getOption('equal')) {
             return true;
         }
-        
-        $event->getResponse()->addFailure($this, 'value not equal (value: ' . $event->getContext()->getPassedValue() . ', should equal: ' . $this->getOption('equal') . ')');
+
+        $msg  = 'value not equal (value: ' . $event->getContext()->getPassedValue();
+        $msg .= ', should equal: ' . $this->getOption('equal') . ')';
+        $event->getResponse()->addFailure($this, $msg);
         return false;
     }
 }

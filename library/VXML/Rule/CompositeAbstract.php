@@ -39,14 +39,21 @@ abstract class CompositeAbstract extends RuleAbstract
         $minLimit = ($this->getOption('min') == self::NUM_RULES ? $numComponents : $this->getOption('min'));
         if ($numValid < $minLimit) {
             $event->getResponse()->merge($childEvents->getResponse());
-            $event->getResponse()->addFailure($this, 'min limit reached (valid: ' . $numValid . ', min: ' . $minLimit . ')');
+            $event->getResponse()->addFailure(
+                $this,
+                'min limit reached (valid: ' . $numValid . ', min: ' . $minLimit . ')'
+            );
+
             return false;
         }
         
         $maxLimit = ($this->getOption('max') == self::NUM_RULES ? $numComponents : $this->getOption('max'));
         if ($numValid > $maxLimit) {
             $event->getResponse()->merge($childEvents->getResponse());
-            $event->getResponse()->addFailure($this, 'max limit reached (valid: ' . $numValid . ', max: ' . $maxLimit . ')');
+            $event->getResponse()->addFailure(
+                $this,
+                'max limit reached (valid: ' . $numValid . ', max: ' . $maxLimit . ')'
+            );
             return false;
         }
         

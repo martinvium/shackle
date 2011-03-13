@@ -37,7 +37,6 @@ class Import extends CompositeAbstract
         self::$_rule = array_pop(self::$_stack);
     }
     
-// PROTECTED
     protected function initialize()
     {
         $this->addOption('path', null);

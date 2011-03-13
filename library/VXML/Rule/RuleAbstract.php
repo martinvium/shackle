@@ -163,14 +163,11 @@ abstract class RuleAbstract implements Rule
             foreach ($this->_eventListeners[$type] as $eventHandler) {
                 if ($eventHandler instanceof Rule) {
                     $results[] = $eventHandler->execute($event->getContext(), $event->getResponse());
-                } 
-                else if ($eventHandler instanceof Closure) {
+                } else if ($eventHandler instanceof Closure) {
                     $results[] = (bool)$eventHandler($event);
-                } 
-                else if (is_callable($eventHandler)) {
+                } else if (is_callable($eventHandler)) {
                     $results[] = (bool)call_user_func($eventHandler, $event);
-                }
-                else {
+                } else {
                     throw new \InvalidArgumentException('invalid event type: ' . var_export($eventHandler, true));
                 }
             }
@@ -205,8 +202,10 @@ abstract class RuleAbstract implements Rule
      */
     final protected function getOption($name)
     {
-        if($this->_options[$name] === null) {
-            throw new \InvalidArgumentException('option "' . $name . '" is required, but was left undefined in rule: ' . get_class($this) . ' on target: ' . $this->getRelativeTarget());
+        if ($this->_options[$name] === null) {
+            $msg  = 'option "' . $name . '" is required, but was left undefined in rule: ';
+            $msg .= get_class($this) . ' on target: ' . $this->getRelativeTarget();
+            throw new \InvalidArgumentException();
         }
         
         return $this->_options[$name];
@@ -234,7 +233,9 @@ abstract class RuleAbstract implements Rule
     final protected function setOptions($options)
     {
         if (! is_array($options)) {
-            throw new \InvalidArgumentException('options must be an array in rule: ' . get_class($this) . ' on target: ' . $this->getRelativeTarget());
+            $msg  = 'options must be an array in rule: ' . get_class($this);
+            $msg .= ' on target: ' . $this->getRelativeTarget();
+            throw new \InvalidArgumentException();
         }
         
         foreach ($options as $name => $value) {
@@ -254,7 +255,7 @@ abstract class RuleAbstract implements Rule
      */
     final protected function getListeners($type)
     {
-        if(! array_key_exists($type, $this->_eventListeners)) {
+        if (! array_key_exists($type, $this->_eventListeners)) {
             return array();
         }
         
