@@ -36,10 +36,8 @@ final class Response
      */
     public function convertFailuresToDebug()
     {
-        foreach($this->messages as $key => $message)
-        {
-            if($message['type'] == self::MSG_FAILURE)
-            {
+        foreach($this->messages as $key => $message) {
+            if($message['type'] == self::MSG_FAILURE) {
                 $this->messages[$key]['type'] = self::MSG_DEBUG;
             }
         }
@@ -49,11 +47,11 @@ final class Response
      * Add a failure message to the response 
      * 
      * @param VXML\Rule\RuleAbstract $rule
-     * @param string $debug_msg OPTIONAL
+     * @param string $debugMsg OPTIONAL
      */
-    public function addFailure($rule, $debug_msg = null)
+    public function addFailure($rule, $debugMsg = null)
     {
-        $this->addMessage(self::MSG_FAILURE, $rule, $rule->getMessage(), $debug_msg);
+        $this->addMessage(self::MSG_FAILURE, $rule, $rule->getMessage(), $debugMsg);
     }
     
     /**
@@ -85,10 +83,8 @@ final class Response
      */
     public function removeByRule($rule)
     {
-        foreach($this->messages as $key => $message)
-        {
-            if($message['rule'] === $rule)
-            {
+        foreach($this->messages as $key => $message) {
+            if($message['rule'] === $rule) {
                 unset($this->messages[$key]);
                 return $message;
             }
@@ -146,10 +142,8 @@ final class Response
     private function getMessagesByType($type)
     {
         $messages = array();
-        foreach($this->messages as $msg)
-        {
-            if($msg['type'] == $type)
-            {
+        foreach($this->messages as $msg) {
+            if($msg['type'] == $type) {
                 $messages[] = $msg;
             }
         }
@@ -162,16 +156,16 @@ final class Response
      * @param integer $type
      * @param VXML\Rule\RuleAbstract $rule
      * @param string $msg
-     * @param string $debug_msg
+     * @param string $debugMsg
      */
-    private function addMessage($type, $rule, $msg, $debug_msg)
+    private function addMessage($type, $rule, $msg, $debugMsg)
     {
         $this->messages[] = array(
-            'type'      => $type,
+            'type'    => $type,
             'rule'    => $rule,
             'target'  => $rule->getResolvedTarget(),
             'message' => $msg,
-            'debug'   => $debug_msg
+            'debug'   => $debugMsg
         );
     }
 }

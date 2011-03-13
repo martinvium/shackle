@@ -18,8 +18,7 @@ final class Silent extends DecoratorAbstract
     protected function evaluate(Event $event)
     {
         $response = $event->getResponse();
-        if(! $this->rule->execute($event->getContext(), $response))
-        {
+        if(! $this->rule->execute($event->getContext(), $response)) {
             $message = $response->removeByRule($this->rule);
             $response->addDebug($message['rule'], $message['debug'] . ' (silenced)');
         }

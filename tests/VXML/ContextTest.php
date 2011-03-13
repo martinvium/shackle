@@ -6,15 +6,15 @@ class ContextTest extends \PHPUnit_Framework_TestCase
     /**
      * @var Context
      */
-    private $context;
+    private $_context;
     
-    private $mockData = null;
+    private $_mockData = null;
     
     protected function setUp() 
     {
         parent::setUp ();
         
-        $this->mockData = array(
+        $this->_mockData = array(
             'level_one_a' => array(
                 'level_two_a' => 'value_a',
                 'level_two_b' => 'value_b'), 
@@ -22,12 +22,12 @@ class ContextTest extends \PHPUnit_Framework_TestCase
             'level_one_c' => 'value_d'
         );
         
-        $this->context = new Context($this->mockData);
+        $this->_context = new Context($this->_mockData);
     }
     
     protected function tearDown() 
     {
-        $this->context = null;
+        $this->_context = null;
         parent::tearDown ();
     }
     
@@ -42,56 +42,56 @@ class ContextTest extends \PHPUnit_Framework_TestCase
     
     public function testSaveRestore() 
     {
-        $this->context->setRelativeTarget('level_one_a');
-        $this->context->save();
-        $this->context->setRelativeTarget('level_two_a');
-        $this->context->restore();
-        $this->assertEquals(array('level_one_a'), $this->context->getResolvedTarget());
+        $this->_context->setRelativeTarget('level_one_a');
+        $this->_context->save();
+        $this->_context->setRelativeTarget('level_two_a');
+        $this->_context->restore();
+        $this->assertEquals(array('level_one_a'), $this->_context->getResolvedTarget());
     }
     
     public function testSimpleRelativeTarget() 
     {
-        $this->context->setRelativeTarget('level_one_a');
-        $this->assertEquals(array('level_one_a'), $this->context->getResolvedTarget());
+        $this->_context->setRelativeTarget('level_one_a');
+        $this->assertEquals(array('level_one_a'), $this->_context->getResolvedTarget());
     }
     
     public function testMultipleLevelTarget()
     {
-        $this->context->setRelativeTarget('level_one_a/level_two_a');
-        $this->assertEquals(array('level_one_a/level_two_a'), $this->context->getResolvedTarget());
+        $this->_context->setRelativeTarget('level_one_a/level_two_a');
+        $this->assertEquals(array('level_one_a/level_two_a'), $this->_context->getResolvedTarget());
     }
     
     public function testAbsoluteTarget()
     {
-        $this->context->setRelativeTarget('level_one_a/level_two_a');
-        $this->context->setRelativeTarget('/level_one_b');
-        $this->assertEquals(array('./level_one_b'), $this->context->getResolvedTarget());
+        $this->_context->setRelativeTarget('level_one_a/level_two_a');
+        $this->_context->setRelativeTarget('/level_one_b');
+        $this->assertEquals(array('./level_one_b'), $this->_context->getResolvedTarget());
     }
     
     public function testRelativeTarget()
     {
-        $this->context->setRelativeTarget('level_one_a');
-        $this->context->setRelativeTarget('level_two_a');
-        $this->assertEquals(array('level_one_a/level_two_a'), $this->context->getResolvedTarget());
+        $this->_context->setRelativeTarget('level_one_a');
+        $this->_context->setRelativeTarget('level_two_a');
+        $this->assertEquals(array('level_one_a/level_two_a'), $this->_context->getResolvedTarget());
     }
     
     public function testGetPassedValue() 
     {
-        $this->context->setRelativeTarget('level_one_a');
-        $this->assertEquals($this->mockData['level_one_a'], $this->context->getPassedValue());
+        $this->_context->setRelativeTarget('level_one_a');
+        $this->assertEquals($this->_mockData['level_one_a'], $this->_context->getPassedValue());
     }
     
     public function testGetPassedValues() 
     {
-        $this->context->setRelativeTarget('level_one_a');
-        $this->assertEquals(array('level_one_a' => $this->mockData['level_one_a']), $this->context->getPassedValues(Context::ALL_TARGETS));
+        $this->_context->setRelativeTarget('level_one_a');
+        $this->assertEquals(array('level_one_a' => $this->_mockData['level_one_a']), $this->_context->getPassedValues(Context::ALL_TARGETS));
     }
     
     public function testGetPassedValuesCustomProto()
     {
         $proto = array('field_a', 'field_b');
-        $this->context->setRelativeTarget(array('level_one_b', 'level_one_c'));
-        $this->assertEquals(array('field_a' => 'value_c', 'field_b' => 'value_d'), $this->context->getPassedValues($proto));
+        $this->_context->setRelativeTarget(array('level_one_b', 'level_one_c'));
+        $this->assertEquals(array('field_a' => 'value_c', 'field_b' => 'value_d'), $this->_context->getPassedValues($proto));
     }
     
     /**
@@ -100,7 +100,7 @@ class ContextTest extends \PHPUnit_Framework_TestCase
     public function testgetPassedValuesCustomProtoTargetCountError()
     {
         $proto = array('field_a', 'field_b');
-        $this->context->setRelativeTarget('level_one_b');
-        $this->context->getPassedValues($proto);
+        $this->_context->setRelativeTarget('level_one_b');
+        $this->_context->getPassedValues($proto);
     }
 }

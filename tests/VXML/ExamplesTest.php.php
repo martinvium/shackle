@@ -10,26 +10,6 @@ use VXML\Rule\Invert;
 
 class ExamplesTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * @var Response
-     */
-    private $response;
-    
-    protected function setUp() 
-    {
-        parent::setUp ();
-        
-        $this->response = new Response();
-        $this->mockRule = new Rule\Equal('mock', array('message' => 'message'));
-    }
-    
-    protected function tearDown() 
-    {
-        $this->response = null;
-        $this->equalsRule = null;
-        parent::tearDown ();
-    }
-    
     public function testSimpleRule()
     {
         $data = array('field_name' => 200);

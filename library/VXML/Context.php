@@ -17,28 +17,28 @@ class Context
      * 
      * @var array
      */
-    private $data = array();
+    private $_data = array();
     
     /**
      * Target(s) currently being processed
      * 
      * @var array
      */
-    private $resolved_targets = array();
+    private $_resolvedTargets = array();
     
     /**
      * Stack for saving/restoring targets being processed
      * 
      * @var array
      */
-    private $resolved_targets_stack = array();
+    private $_resolvedTargetsStack = array();
     
     /**
      * @param array $data
      */
     public function __construct($data)
     {
-        $this->data = $data;
+        $this->_data = $data;
     }
     
     /**
@@ -48,7 +48,7 @@ class Context
      */
     public function save()
     {
-        $this->resolved_targets_stack[] = $this->resolved_targets;
+        $this->_resolvedTargetsStack[] = $this->_resolvedTargets;
     }
     
     /**
@@ -58,7 +58,7 @@ class Context
      */
     public function restore()
     {
-        $this->resolved_targets = array_pop($this->resolved_targets_stack);
+        $this->_resolvedTargets = array_pop($this->_resolvedTargetsStack);
     }
     
     /**
@@ -70,35 +70,29 @@ class Context
      */
     public function setRelativeTarget($targets)
     {
-        if(is_scalar($targets))
-        {
+        if(is_scalar($targets)) {
             $targets = array($targets);
         }
         
         if(! is_array($targets))
             throw new \InvalidArgumentException('target must be a scalar or an array');
         
-        $resolved_targets = array();
-        foreach($targets as $target)
-        {
-            if($this->isAbsolute($target))
-            {
-                $resolved_targets[] = self::RELATIVE . $target;
+        $resolvedTargets = array();
+        foreach($targets as $target) {
+            if($this->isAbsolute($target)) {
+                $resolvedTargets[] = self::RELATIVE . $target;
             }
-            else if(count($this->resolved_targets))
-            {
-                foreach($this->resolved_targets as $o_target)
-                {
-                    $resolved_targets[] = $o_target . self::SEPERATOR . $target;
+            else if(count($this->_resolvedTargets)) {
+                foreach($this->_resolvedTargets as $o_target) {
+                    $resolvedTargets[] = $o_target . self::SEPERATOR . $target;
                 }
             }
-            else
-            {
-                $resolved_targets[] = $target;
+            else {
+                $resolvedTargets[] = $target;
             }
         }
         
-        $this->resolved_targets = $resolved_targets;
+        $this->_resolvedTargets = $resolvedTargets;
     }
     
     /**
@@ -109,7 +103,7 @@ class Context
      */
     public function getResolvedTarget()
     {
-        return $this->resolved_targets;
+        return $this->_resolvedTargets;
     }
     
     /**
@@ -117,10 +111,10 @@ class Context
      */
     public function getPassedValue()
     {
-        if(count($this->resolved_targets) > 1)
-            throw new \InvalidArgumentException('rule only expects 1 target, multiple were given: ' . count($this->resolved_targets));
+        if(count($this->_resolvedTargets) > 1)
+            throw new \InvalidArgumentException('rule only expects 1 target, multiple were given: ' . count($this->_resolvedTargets));
         
-        return $this->getValueFromTarget(current($this->resolved_targets));
+        return $this->getValueFromTarget(current($this->_resolvedTargets));
     }
     
     /**
@@ -133,18 +127,16 @@ class Context
      */
     public function getPassedValues($proto)
     {
-        if($proto == self::ALL_TARGETS)
-        {
-            $proto = $this->resolved_targets;
+        if($proto == self::ALL_TARGETS) {
+            $proto = $this->_resolvedTargets;
         }
         
-        if(count($this->resolved_targets) != count($proto))
+        if(count($this->_resolvedTargets) != count($proto))
             throw new \InvalidArgumentException('number of targets mismatch');
         
         $values = array();
-        foreach($proto as $key => $name)
-        {
-            $values[$name] = $this->getValueFromTarget($this->resolved_targets[$key]);
+        foreach($proto as $key => $name) {
+            $values[$name] = $this->getValueFromTarget($this->_resolvedTargets[$key]);
         }
         
         return $values;
@@ -172,13 +164,11 @@ class Context
      */
     private function getValueFromTarget($target)
     {
-        $data = $this->data;
+        $data = $this->_data;
         $pieces = explode(self::SEPERATOR, $target);
         
-        foreach($pieces as $piece)
-        {
-            switch($piece)
-            {
+        foreach($pieces as $piece) {
+            switch($piece) {
                 case self::RELATIVE:
                     continue;
                 default:

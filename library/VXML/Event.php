@@ -11,17 +11,17 @@ final class Event
     /**
      * @var VXML\Rule\RuleAbstract
      */
-    private $rule;
+    private $_rule;
     
     /**
      * @var VXML\Context
      */
-    private $context;
+    private $_context;
     
     /**
      * @var VXML\Response
      */
-    private $response;
+    private $_response;
     
     /**
      * @param Rule\RuleAbstract $rule
@@ -30,9 +30,9 @@ final class Event
      */
     public function __construct(Rule\RuleAbstract $rule, Context $context, Response $response)
     {
-        $this->rule = $rule;
-        $this->context = $context;
-        $this->response = $response;
+        $this->_rule = $rule;
+        $this->_context = $context;
+        $this->_response = $response;
     }
     
     /**
@@ -40,7 +40,7 @@ final class Event
      */
     public function getRule()
     {
-        return $this->rule;
+        return $this->_rule;
     }
     
     /**
@@ -48,7 +48,7 @@ final class Event
      */
     public function getContext()
     {
-        return $this->context;
+        return $this->_context;
     }
     
     /**
@@ -56,6 +56,6 @@ final class Event
      */
     public function getResponse()
     {
-        return $this->response;
+        return $this->_response;
     }
 }

@@ -16,8 +16,7 @@ final class Whitelist extends RuleAbstract
      */
     protected function evaluate(Event $event)
     {
-        if(in_array($event->getContext()->getPassedValue(), $this->getOption('options'), $this->getOption('strict')))
-        {
+        if(in_array($event->getContext()->getPassedValue(), $this->getOption('options'), $this->getOption('strict'))) {
             return true;
         }
         

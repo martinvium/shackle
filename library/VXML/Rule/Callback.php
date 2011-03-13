@@ -18,8 +18,7 @@ final class Callback extends RuleAbstract
         $callback = $this->getOption('callback');
         
         $this->addListener('callback', $callback);
-        if(count(array_filter($this->invoke('callback', $event))) == 1)
-        {
+        if(count(array_filter($this->invoke('callback', $event))) == 1) {
             return true;
         }
         

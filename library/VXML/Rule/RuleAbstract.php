@@ -13,7 +13,7 @@ abstract class RuleAbstract implements Rule
      * 
      * @var array
      */
-    private $target = array();
+    private $_target = array();
     
     /**
      * Last target of the rule, after it has been applied to the context
@@ -22,21 +22,21 @@ abstract class RuleAbstract implements Rule
      * 
      * @var array
      */
-    private $resolved_target = array();
+    private $_resolvedTargets = array();
     
     /**
      * Rules options
      * 
      * @var array
      */
-    private $options = array();
+    private $_options = array();
     
     /**
      * Rules and callbacks listening to this rules events
      * 
      * @var array
      */
-    private $event_listeners = array();
+    private $_eventListeners = array();
     
 // MAGIC
     /**
@@ -73,7 +73,7 @@ abstract class RuleAbstract implements Rule
      */
     public function addListener($event, $rule)
     {
-        return $this->event_listeners[$event][] = $rule;
+        return $this->_eventListeners[$event][] = $rule;
     }
     
     /**
@@ -87,19 +87,16 @@ abstract class RuleAbstract implements Rule
     {
         $context->save();
         $context->setRelativeTarget($this->getRelativeTarget());
-        $this->resolved_target = $context->getResolvedTarget();
+        $this->_resolvedTargets = $context->getResolvedTarget();
         
         $event = new Event($this, $context, $response);
         $this->invoke('before', $event);
         
         $ret = $this->evaluate($event);
-        if($ret)
-        {
+        if($ret) {
             $response->addSuccess($this);
             $this->invoke('valid', $event);
-        }
-        else 
-        {
+        } else {
             $this->invoke('failure', $event);
         }
         
@@ -127,7 +124,7 @@ abstract class RuleAbstract implements Rule
      */
     public function getRelativeTarget()
     {
-        return $this->target;
+        return $this->_target;
     }
     
     /**
@@ -137,7 +134,7 @@ abstract class RuleAbstract implements Rule
      */
     final public function setRelativeTarget($target)
     {
-        $this->target = $target;
+        $this->_target = $target;
     }
     
     /**
@@ -149,7 +146,7 @@ abstract class RuleAbstract implements Rule
      */
     final public function getResolvedTarget()
     {
-        return $this->resolved_target;
+        return $this->_resolvedTargets;
     }
     
     /**
@@ -162,25 +159,19 @@ abstract class RuleAbstract implements Rule
     final public function invoke($type, $event)
     {
         $results = array();
-        if(isset($this->event_listeners[$type]))
-        {
-            foreach($this->event_listeners[$type] as $event_handler)
-            {
-                if($event_handler instanceof Rule)
-                {
-                    $results[] = $event_handler->execute($event->getContext(), $event->getResponse());
+        if(isset($this->_eventListeners[$type])) {
+            foreach($this->_eventListeners[$type] as $eventHandler) {
+                if($eventHandler instanceof Rule) {
+                    $results[] = $eventHandler->execute($event->getContext(), $event->getResponse());
+                } 
+                else if($eventHandler instanceof Closure) {
+                    $results[] = (bool)$eventHandler($event);
+                } 
+                else if(is_callable($eventHandler)) {
+                    $results[] = (bool)call_user_func($eventHandler, $event);
                 }
-                else if($event_handler instanceof Closure)
-                {
-                    $results[] = (bool)$event_handler($event);
-                }
-                else if(is_callable($event_handler))
-                {
-                    $results[] = (bool)call_user_func($event_handler, $event);
-                }
-                else
-                {
-                    throw new \InvalidArgumentException('invalid event type: ' . var_export($event_handler, true));
+                else {
+                    throw new \InvalidArgumentException('invalid event type: ' . var_export($eventHandler, true));
                 }
             }
         }
@@ -214,10 +205,10 @@ abstract class RuleAbstract implements Rule
      */
     final protected function getOption($name)
     {
-        if($this->options[$name] === null)
+        if($this->_options[$name] === null)
             throw new \InvalidArgumentException('option "' . $name . '" is required, but was left undefined in rule: ' . get_class($this) . ' on target: ' . $this->getRelativeTarget());
         
-        return $this->options[$name];
+        return $this->_options[$name];
     }
     
     /**
@@ -230,7 +221,7 @@ abstract class RuleAbstract implements Rule
      */
     final protected function addOption($name, $default_value)
     {
-        $this->options[$name] = $default_value;
+        $this->_options[$name] = $default_value;
     }
     
     /**
@@ -244,12 +235,11 @@ abstract class RuleAbstract implements Rule
         if(! is_array($options))
             throw new \InvalidArgumentException('options must be an array in rule: ' . get_class($this) . ' on target: ' . $this->getRelativeTarget());
         
-        foreach($options as $name => $value)
-        {
-            if(! array_key_exists($name, $this->options))
+        foreach($options as $name => $value) {
+            if(! array_key_exists($name, $this->_options))
                 throw new \InvalidArgumentException('option "' . $name . '" does not exist');
             
-            $this->options[$name] = $value;
+            $this->_options[$name] = $value;
         }
     }
     
@@ -261,11 +251,10 @@ abstract class RuleAbstract implements Rule
      */
     final protected function getListeners($type)
     {
-        if(! array_key_exists($type, $this->event_listeners))
-        {
+        if(! array_key_exists($type, $this->_eventListeners)) {
             return array();
         }
         
-        return $this->event_listeners[$type];
+        return $this->_eventListeners[$type];
     }
 }

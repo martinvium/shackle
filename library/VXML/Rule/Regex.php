@@ -15,8 +15,7 @@ final class Regex extends RuleAbstract
      */
     protected function evaluate(Event $event)
     {
-        if(preg_match($this->getOption('pattern'), $event->getContext()->getPassedValue()))
-        {
+        if(preg_match($this->getOption('pattern'), $event->getContext()->getPassedValue())) {
             return true;
         }
         

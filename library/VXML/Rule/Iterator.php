@@ -29,8 +29,7 @@ final class Iterator extends DecoratorAbstract
             throw new \InvalidArgumentException('target for rule Iterator, may only be an array');
         
         $child_response = new Response();
-        foreach($values as $key => $value)
-        {
+        foreach($values as $key => $value) {
             $this->rule->setRelativeTarget($key);
             $results[] = $this->rule->execute($event->getContext(), $child_response);
         }
@@ -38,16 +37,14 @@ final class Iterator extends DecoratorAbstract
         $num_valid = count(array_filter($results));
         
         $min = ($this->getOption('min') == self::NUM_VALUES ? count($results) : $this->getOption('min'));
-        if($num_valid < $min)
-        {
+        if($num_valid < $min) {
             $response->merge($child_response);
             $response->addFailure($this, 'min limit reached (valid: ' . $num_valid . ', min: ' . $min . ')');
             return false;
         }
         
         $max = ($this->getOption('max') == self::NUM_VALUES ? count($results) : $this->getOption('max'));
-        if($num_valid > $max)
-        {
+        if($num_valid > $max) {
             $response->merge($child_response);
             $response->addFailure($this, 'max limit reached (valid: ' . $num_valid . ', max: ' . $max . ')');
             return false;

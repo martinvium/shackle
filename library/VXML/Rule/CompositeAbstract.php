@@ -31,29 +31,27 @@ abstract class CompositeAbstract extends RuleAbstract
      */
     protected function evaluate(Event $event)
     {
-        $num_components = count($this->getListeners('components'));
+        $numComponents = count($this->getListeners('components'));
         
-        $child_event = new Event($event->getRule(), $event->getContext(), new Response());
-        $num_valid = count(array_filter($this->invoke('components', $child_event)));
+        $childEvents = new Event($event->getRule(), $event->getContext(), new Response());
+        $numValid = count(array_filter($this->invoke('components', $childEvents)));
         
-        $min_limit = ($this->getOption('min') == self::NUM_RULES ? $num_components : $this->getOption('min'));
-        if($num_valid < $min_limit)
-        {
-            $event->getResponse()->merge($child_event->getResponse());
-            $event->getResponse()->addFailure($this, 'min limit reached (valid: ' . $num_valid . ', min: ' . $min_limit . ')');
+        $minLimit = ($this->getOption('min') == self::NUM_RULES ? $numComponents : $this->getOption('min'));
+        if($numValid < $minLimit) {
+            $event->getResponse()->merge($childEvents->getResponse());
+            $event->getResponse()->addFailure($this, 'min limit reached (valid: ' . $numValid . ', min: ' . $minLimit . ')');
             return false;
         }
         
-        $max_limit = ($this->getOption('max') == self::NUM_RULES ? $num_components : $this->getOption('max'));
-        if($num_valid > $max_limit)
-        {
-            $event->getResponse()->merge($child_event->getResponse());
-            $event->getResponse()->addFailure($this, 'max limit reached (valid: ' . $num_valid . ', max: ' . $max_limit . ')');
+        $maxLimit = ($this->getOption('max') == self::NUM_RULES ? $numComponents : $this->getOption('max'));
+        if($numValid > $maxLimit) {
+            $event->getResponse()->merge($childEvents->getResponse());
+            $event->getResponse()->addFailure($this, 'max limit reached (valid: ' . $numValid . ', max: ' . $maxLimit . ')');
             return false;
         }
         
-        $child_event->getResponse()->convertFailuresToDebug();
-        $event->getResponse()->merge($child_event->getResponse());
+        $childEvents->getResponse()->convertFailuresToDebug();
+        $event->getResponse()->merge($childEvents->getResponse());
         return true;
     }
 }

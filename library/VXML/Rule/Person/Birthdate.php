@@ -24,8 +24,7 @@ final class Birthdate extends CompositeAbstract
      */
     public function evaluate(Event $event)
     {
-        if(! parent::evaluate($event))
-        {
+        if(! parent::evaluate($event)) {
             return false;
         }
         
@@ -34,15 +33,13 @@ final class Birthdate extends CompositeAbstract
         $datetime = date_create(sprintf("%04d%02d%02d", $values['year'], $values['month'], $values['day']));
 //        $datetime->setDate($values['year'], $values['month'], $values['day']);
         
-        if(! $datetime)
-        {
+        if(! $datetime) {
             $event->getResponse()->addFailure($this, 'invalid data, unable to create valid date: 
                 (year: ' . $values['year'] . ', month: ' . $values['month'] . ', day: ' . $values['day'] . ')');
             return false;
         }
         
-        if($datetime->format('Y') > 1900 && $datetime->format('Y') < 2100)
-        {
+        if($datetime->format('Y') > 1900 && $datetime->format('Y') < 2100) {
             return true;
         }
         

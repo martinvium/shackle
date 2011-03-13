@@ -15,8 +15,7 @@ class Equal extends RuleAbstract
      */
     protected function evaluate(Event $event)
     {
-        if($event->getContext()->getPassedValue() == $this->getOption('equal'))
-        {
+        if($event->getContext()->getPassedValue() == $this->getOption('equal')) {
             return true;
         }
         
