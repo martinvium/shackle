@@ -14,27 +14,27 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-namespace VXML;
+namespace Shackle;
 
 class EventTest extends \PHPUnit_Framework_TestCase {
     
     /**
-     * @var VXML\Event
+     * @var Shackle\Event
      */
     private $_event;
     
     /**
-     * @var VXML\Rule\RuleAbstract
+     * @var Shackle\Rule\RuleAbstract
      */
     private $_rule;
     
     /**
-     * @var VXML\Context
+     * @var Shackle\Context
      */
     private $_context;
     
     /**
-     * @var VXML\Response
+     * @var Shackle\Response
      */
     private $_response;
     
@@ -57,16 +57,16 @@ class EventTest extends \PHPUnit_Framework_TestCase {
     
     public function testGetRule()
     {
-        $this->assertInstanceOf('VXML\Rule\RuleAbstract', $this->_event->getRule());
+        $this->assertInstanceOf('Shackle\Rule\RuleAbstract', $this->_event->getRule());
     }
     
     public function testGetContext()
     {
-        $this->assertInstanceOf('VXML\Context', $this->_event->getContext());
+        $this->assertInstanceOf('Shackle\Context', $this->_event->getContext());
     }
     
     public function testGetResponse()
     {
-        $this->assertInstanceOf('VXML\Response', $this->_event->getResponse());
+        $this->assertInstanceOf('Shackle\Response', $this->_event->getResponse());
     }
 }

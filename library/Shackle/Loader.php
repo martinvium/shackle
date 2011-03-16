@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-namespace VXML;
+namespace Shackle;
 
 /**
  * Autoloader for loading rules, without having to include them first
@@ -23,11 +23,11 @@ class Loader
 {
     /**
      * Register autoloader, call this to have classes automatically included. 
-     * Required VXML to be in include path.
+     * Required Shackle to be in include path.
      */
     static public function registerAutoload()
     {
-        spl_autoload_register(array('VXML\Loader', 'autoload'));
+        spl_autoload_register(array('Shackle\Loader', 'autoload'));
     }
     
     /**

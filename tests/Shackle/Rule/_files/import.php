@@ -1,5 +1,5 @@
 <?php
-use VXML\Rule;
+use Shackle\Rule;
 
 $set = Rule\Import::getInstance();
 $set->add(new Rule\Equal('firstname', array('equal' => 'Jørgen')));

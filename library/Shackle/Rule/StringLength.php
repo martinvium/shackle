@@ -14,13 +14,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-namespace VXML\Rule;
+namespace Shackle\Rule;
 
-use VXML\Event;
+use Shackle\Event;
 
 final class StringLength extends RuleAbstract
 {
-    const MAX_LENGTH = 'VXML_Rule_StringLength::MAX_LENGTH';
+    const MAX_LENGTH = 'Shackle_Rule_StringLength::MAX_LENGTH';
     
     protected function initialize()
     {

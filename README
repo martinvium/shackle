@@ -1,8 +1,8 @@
-    VXML - Complex Input Validation
+    Shackle - Complex Input Validation
 
 WHAT IS IT
 
-  VXML is a library written in PHP, to assist with building validation 
+  Shackle is a library written in PHP, to assist with building validation 
   schemes for complex forms - often consisting of many fields depending 
   on each other.
 

@@ -1,5 +1,5 @@
 <?php
-use VXML\Rule;
+use Shackle\Rule;
 
 $set = Rule\Import::getInstance();
 $set3 = $set->add(new Rule\Iterator(new Rule\Set('.', array('min' => 1))));

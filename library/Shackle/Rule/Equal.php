@@ -14,9 +14,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-namespace VXML\Rule;
+namespace Shackle\Rule;
 
-use VXML\Event;
+use Shackle\Event;
 
 class Equal extends RuleAbstract
 {

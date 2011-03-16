@@ -1,5 +1,5 @@
 <?php
-use VXML\Rule;
+use Shackle\Rule;
 
 $set = Rule\Import::getInstance();
 $set->add(new Rule\NumberRange('ekstra1', array('min' => 100, 'max' => 300, 'message' => 'number range test failed')));
@@ -47,7 +47,7 @@ $set->add(new Rule\Invert(new Rule\Whitelist('whitelist', array('options' => arr
 //$set->add(new Rule\Silence(new Rule\Equal('ekstra7', array('equal' => 'Ja'))))->valid(new Rule\Filter\Value('.', array('value' => 'Nej')));
 
 /**
- * @param VXML\Event $event
+ * @param Shackle\Event $event
  */
 function cb_rule_success($event)
 {

@@ -14,10 +14,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-namespace VXML;
+namespace Shackle;
 
-use VXML\Context;
-use VXML\Response;
+use Shackle\Context;
+use Shackle\Response;
 
 interface Rule
 {

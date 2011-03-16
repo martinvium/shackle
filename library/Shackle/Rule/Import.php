@@ -14,10 +14,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-namespace VXML\Rule;
+namespace Shackle\Rule;
 
-use VXML\Rule;
-use VXML\Event;
+use Shackle\Rule;
+use Shackle\Event;
 
 class Import extends CompositeAbstract
 {

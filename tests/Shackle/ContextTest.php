@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-namespace VXML;
+namespace Shackle;
 
 class ContextTest extends \PHPUnit_Framework_TestCase
 {
@@ -48,11 +48,11 @@ class ContextTest extends \PHPUnit_Framework_TestCase
     
     public function testConstants()
     {
-        $this->assertTrue(defined('VXML\Context::SEPERATOR'));
-        $this->assertTrue(defined('VXML\Context::WILDCARD'));
-        $this->assertTrue(defined('VXML\Context::RELATIVE'));
-        $this->assertTrue(defined('VXML\Context::PARENT'));
-        $this->assertTrue(defined('VXML\Context::ALL_TARGETS'));
+        $this->assertTrue(defined('Shackle\Context::SEPERATOR'));
+        $this->assertTrue(defined('Shackle\Context::WILDCARD'));
+        $this->assertTrue(defined('Shackle\Context::RELATIVE'));
+        $this->assertTrue(defined('Shackle\Context::PARENT'));
+        $this->assertTrue(defined('Shackle\Context::ALL_TARGETS'));
     }
     
     public function testSaveRestore() 

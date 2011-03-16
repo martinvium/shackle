@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-namespace VXML;
+namespace Shackle;
 
 /**
  * Context acts as a front for rules to the input data
@@ -25,7 +25,7 @@ class Context
     const WILDCARD       = '*';
     const RELATIVE    = '.';
     const PARENT      = '..';
-    const ALL_TARGETS = 'VXML_Context::ALL_ARGS';
+    const ALL_TARGETS = 'Shackle_Context::ALL_ARGS';
     
     /**
      * Input data for rules to be applied to

@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-namespace VXML;
+namespace Shackle;
 
 /**
  * Event is passed to rules and callbacks, when they are executed. It
@@ -24,17 +24,17 @@ namespace VXML;
 final class Event
 {
     /**
-     * @var VXML\Rule\RuleAbstract
+     * @var Shackle\Rule\RuleAbstract
      */
     private $_rule;
     
     /**
-     * @var VXML\Context
+     * @var Shackle\Context
      */
     private $_context;
     
     /**
-     * @var VXML\Response
+     * @var Shackle\Response
      */
     private $_response;
     
@@ -51,7 +51,7 @@ final class Event
     }
     
     /**
-     * @return VXML\Rule\RuleAbstract
+     * @return Shackle\Rule\RuleAbstract
      */
     public function getRule()
     {
@@ -59,7 +59,7 @@ final class Event
     }
     
     /**
-     * @return VXML\Context
+     * @return Shackle\Context
      */
     public function getContext()
     {
@@ -67,7 +67,7 @@ final class Event
     }
     
     /**
-     * @return VXML\Response
+     * @return Shackle\Response
      */
     public function getResponse()
     {

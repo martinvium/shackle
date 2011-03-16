@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<ruleset name="VXML Coding Standards">
+<ruleset name="Shackle Coding Standards">
     <description>The PEAR standard, but warnings at 90 chars.</description>
 
     <!-- Include the whole PEAR standard -->

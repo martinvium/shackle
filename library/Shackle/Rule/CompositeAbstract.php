@@ -14,15 +14,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-namespace VXML\Rule;
+namespace Shackle\Rule;
 
-use VXML\Event;
-use VXML\Response;
-use VXML\Context;
+use Shackle\Event;
+use Shackle\Response;
+use Shackle\Context;
 
 abstract class CompositeAbstract extends RuleAbstract
 {
-    const NUM_RULES = 'VXML_Rule_CompositeAbstract::NUM_RULES';
+    const NUM_RULES = 'Shackle_Rule_CompositeAbstract::NUM_RULES';
     
     public function __construct($target = Context::RELATIVE, $options = array())
     {

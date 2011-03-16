@@ -14,14 +14,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-namespace VXML;
+namespace Shackle;
 
-use VXML\Rule\NumberRange;
-use VXML\Rule\Set;
-use VXML\Rule\Equal;
-use VXML\Rule\Regex;
-use VXML\Rule\Optional;
-use VXML\Rule\Invert;
+use Shackle\Rule\NumberRange;
+use Shackle\Rule\Set;
+use Shackle\Rule\Equal;
+use Shackle\Rule\Regex;
+use Shackle\Rule\Optional;
+use Shackle\Rule\Invert;
 
 class ExamplesTest extends \PHPUnit_Framework_TestCase
 {

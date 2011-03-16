@@ -14,9 +14,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-namespace VXML\Rule;
+namespace Shackle\Rule;
 
-use VXML\Event;
+use Shackle\Event;
 
 final class Regex extends RuleAbstract
 {
@@ -26,7 +26,7 @@ final class Regex extends RuleAbstract
     }
     
     /**
-     * @param VXML\Event $event
+     * @param Shackle\Event $event
      */
     protected function evaluate(Event $event)
     {

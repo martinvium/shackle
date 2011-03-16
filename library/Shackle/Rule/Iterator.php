@@ -14,14 +14,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-namespace VXML\Rule;
+namespace Shackle\Rule;
 
-use VXML\Event;
-use VXML\Response;
+use Shackle\Event;
+use Shackle\Response;
 
 final class Iterator extends DecoratorAbstract
 {
-    const NUM_VALUES = 'VXML_Rule_Iterate::NUM_VALUES';
+    const NUM_VALUES = 'Shackle_Rule_Iterate::NUM_VALUES';
     
     protected function initialize()
     {

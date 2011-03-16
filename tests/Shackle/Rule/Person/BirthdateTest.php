@@ -14,9 +14,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-namespace VXML\Rule\Person;
+namespace Shackle\Rule\Person;
 
-use VXML\Rule\TestCase;
+use Shackle\Rule\TestCase;
 
 /**
  * @todo add support for single string target, maybe just check on 1 vs 3 targets?

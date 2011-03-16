@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-namespace VXML;
+namespace Shackle;
 
 class ResponseTest extends \PHPUnit_Framework_TestCase
 {
@@ -45,9 +45,9 @@ class ResponseTest extends \PHPUnit_Framework_TestCase
     
     public function testConstants()
     {
-        $this->assertTrue(defined('VXML\Response::MSG_FAILURE'));
-        $this->assertTrue(defined('VXML\Response::MSG_SUCCESS'));
-        $this->assertTrue(defined('VXML\Response::MSG_DEBUG'));
+        $this->assertTrue(defined('Shackle\Response::MSG_FAILURE'));
+        $this->assertTrue(defined('Shackle\Response::MSG_SUCCESS'));
+        $this->assertTrue(defined('Shackle\Response::MSG_DEBUG'));
     }
     
     public function testMergeResponse()

@@ -1,10 +1,10 @@
 <?php
-use VXML\Rule;
+use Shackle\Rule;
 
 set_include_path(get_include_path() . PATH_SEPARATOR . '../library');
 
-require_once 'VXML/Loader.php';
-VXML\Loader::registerAutoload();
+require_once 'Shackle/Loader.php';
+Shackle\Loader::registerAutoload();
 
 $data = array(
     'ekstra1' => 8000,
@@ -26,9 +26,9 @@ $data['ekstra6'][] = array('email' => 'test1@test.dk', 'firstname' => 'bla1');
 $data['ekstra6'][] = array('email' => 'test2@test.dk', 'firstname' => 'bla2');
 
 // execute
-$response = new VXML\Response();
-$import = new VXML\Rule\Import('.', array('path' => 'validators.php'));
-$ret = $import->execute(new VXML\Context($data), $response);
+$response = new Shackle\Response();
+$import = new Shackle\Rule\Import('.', array('path' => 'validators.php'));
+$ret = $import->execute(new Shackle\Context($data), $response);
 
 echo '<table border="1" cellpadding="3">';
 foreach($response->getAllMessages() as $msg)
@@ -45,7 +45,7 @@ echo '</table>';
 
 function get_color_from_type($type)
 {
-    return ($type == \VXML\Response::MSG_SUCCESS ? '#008000' : ($type == \VXML\Response::MSG_DEBUG ? '#DFDFDF' : '#FF2020'));
+    return ($type == \Shackle\Response::MSG_SUCCESS ? '#008000' : ($type == \Shackle\Response::MSG_DEBUG ? '#DFDFDF' : '#FF2020'));
 }
 
 function write_target($target)
@@ -61,7 +61,7 @@ function write_target($target)
 }
 
 /**
- * @param VXML\Event $event
+ * @param Shackle\Event $event
  */
 function cb_rule_test($event)
 {

@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-namespace VXML;
+namespace Shackle;
 
 /**
  * Rules add messages and type failure, success or debug to the response
@@ -37,7 +37,7 @@ final class Response
     private $_messages = array();
     
     /**
-     * @param VXML\Response $response
+     * @param Shackle\Response $response
      */
     public function merge($response)
     {
@@ -61,7 +61,7 @@ final class Response
     /**
      * Add a failure message to the response 
      * 
-     * @param VXML\Rule\RuleAbstract $rule
+     * @param Shackle\Rule\RuleAbstract $rule
      * @param string $debugMsg OPTIONAL
      */
     public function addFailure($rule, $debugMsg = null)
@@ -72,7 +72,7 @@ final class Response
     /**
      * Add a success message to the response
      * 
-     * @param VXML\Rule\RuleAbstract $rule
+     * @param Shackle\Rule\RuleAbstract $rule
      * @param string $debug_msg OPTIONAL
      */
     public function addSuccess($rule, $debug_msg = null)
@@ -83,7 +83,7 @@ final class Response
     /**
      * Add a debug message to the response
      * 
-     * @param VXML\Rule\RuleAbstract $rule
+     * @param Shackle\Rule\RuleAbstract $rule
      * @param string $debug_msg
      */
     public function addDebug($rule, $debug_msg)
@@ -94,7 +94,7 @@ final class Response
     /**
      * Remove all messages added by a specific rule
      * 
-     * @param VXML\Rule\RuleAbstract $rule
+     * @param Shackle\Rule\RuleAbstract $rule
      */
     public function removeByRule($rule)
     {
@@ -169,7 +169,7 @@ final class Response
      * Add message
      * 
      * @param integer $type
-     * @param VXML\Rule\RuleAbstract $rule
+     * @param Shackle\Rule\RuleAbstract $rule
      * @param string $msg
      * @param string $debugMsg
      */

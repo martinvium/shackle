@@ -14,10 +14,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-namespace VXML\Rule\Person;
+namespace Shackle\Rule\Person;
 
-use VXML\Event;
-use VXML\Rule\CompositeAbstract;
+use Shackle\Event;
+use Shackle\Rule\CompositeAbstract;
 
 final class Birthdate extends CompositeAbstract
 {
