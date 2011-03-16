@@ -84,11 +84,21 @@ abstract class RuleAbstract implements Rule
      * 
      * @param string $event
      * @param string|Rule $rule
-     * @return $rule
+     * @return Rule
      */
     public function addListener($event, $rule)
     {
         return $this->_eventListeners[$event][] = $rule;
+    }
+
+    /**
+     *
+     * @param <type> $rule
+     * @return Rule
+     */
+    public function onValid($rule)
+    {
+        return $this->addListener('valid', $rule);
     }
     
     /**
