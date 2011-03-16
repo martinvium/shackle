@@ -52,6 +52,13 @@ abstract class RuleAbstract implements Rule
      * @var array
      */
     private $_eventListeners = array();
+
+    /**
+     * Response from last time execute was called
+     *
+     * @var Response
+     */
+    private $_lastResponse;
     
 // MAGIC
     /**
@@ -108,8 +115,12 @@ abstract class RuleAbstract implements Rule
      * @param Response $response
      * @return boolean
      */
-    public function execute(Context $context, Response $response)
+    public function execute(Context $context, Response $response = null)
     {
+        if(! $response) {
+            $response = new Response();
+        }
+
         $context->save();
         $context->setRelativeTarget($this->getRelativeTarget());
         $this->_resolvedTargets = $context->getResolvedTarget();
@@ -128,8 +139,18 @@ abstract class RuleAbstract implements Rule
         $this->invoke('after', $event);
         
         $context->restore();
-        
+
+        $this->_lastResponse = $response;
+
         return $ret;
+    }
+
+    /**
+     * @return Response
+     */
+    public function getLastResponse()
+    {
+        return $this->_lastResponse;
     }
     
     /**

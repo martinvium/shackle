@@ -30,6 +30,26 @@ class EqualTest extends TestCase
         $this->assertFalse($rule->execute($this->context, $this->response));
     }
     
+    public function testGetLastResponse_NoExecute_ReturnsNull()
+    {
+        $rule = new Equal('firstname', array('equal' => 'Jørgenx'));
+        $this->assertNull($rule->getLastResponse());
+    }
+
+    public function testGetLastResponse_NoResponseArg_ReturnsNewResponse()
+    {
+        $rule = new Equal('firstname', array('equal' => 'Jørgenx'));
+        $rule->execute($this->context);
+        $this->assertInstanceOf('VXML\Response', $rule->getLastResponse());
+    }
+
+    public function testGetLastResponse_PassedResponse_ReturnsSameResponse()
+    {
+        $rule = new Equal('firstname', array('equal' => 'Jørgenx'));
+        $rule->execute($this->context, $this->response);
+        $this->assertSame($this->response, $rule->getLastResponse());
+    }
+    
     /**
      * @expectedException \InvalidArgumentException
      */
