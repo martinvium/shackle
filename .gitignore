@@ -1,3 +1,4 @@
 
-/build/coverage
-/build/logs
+nbproject/private/
+build/coverage
+build/logs
